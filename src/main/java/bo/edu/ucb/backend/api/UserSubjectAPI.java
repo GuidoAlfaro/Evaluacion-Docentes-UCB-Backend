@@ -75,8 +75,9 @@ public class UserSubjectAPI {
             return new ResponseDTO("400", "No se pudo eliminar el usuario materia");
         }
     }
-
-    @GetMapping("/student/{id}")
+    //FIXME: VERIFICA QUE EL ID NO SEA DE UN DOCENTE
+    //
+    @GetMapping("/teachers/{id}")
     public ResponseDTO findUserSubjectByStudentId(@PathVariable Integer id) {
         try {
             return new ResponseDTO(userSubjectBL.findMateriasAlumno(id));

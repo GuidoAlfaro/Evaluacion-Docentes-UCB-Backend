@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import bo.edu.ucb.backend.bl.UserBL;
+import bo.edu.ucb.backend.dto.LoginDTO;
 import bo.edu.ucb.backend.dto.ResponseDTO;
 import bo.edu.ucb.backend.entity.User;
 
@@ -73,6 +74,16 @@ public class UserAPI {
         } catch (Exception ex) {
             LOG.error("Error al eliminar el usuario: ", ex);
             return new ResponseDTO("400", "No se pudo eliminar el usuario");
+        }
+    }
+
+    @PostMapping("/auth")
+    public ResponseDTO authUser(@RequestBody LoginDTO auth) {
+        try {
+            return new ResponseDTO(userBL.verifyUserbyEmail(auth.getEmail()));
+        } catch (Exception ex) {
+            LOG.error("Error al autenticar el usuario: ", ex);
+            return new ResponseDTO("400", "No se pudo autenticar el usuario");
         }
     }
 }

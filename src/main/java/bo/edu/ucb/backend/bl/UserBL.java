@@ -77,4 +77,14 @@ public class UserBL {
             LOG.error("Ocurrio un error mientras se eliminaba el usuario: ", ex);
         }
     }
+
+    public User verifyUserbyEmail(String email) {
+        try {
+            LOG.info("Verificando usuario con correo: {}", email);
+            return userDAO.findByEmail(email);
+        } catch (Exception e) {
+           LOG.error("Ocurrio un error", e);
+           throw new RuntimeException("No existe el usuario con correo: " + email);
+        }
+    }
 }
