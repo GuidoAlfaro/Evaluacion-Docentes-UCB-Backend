@@ -221,6 +221,8 @@ ALTER TABLE "user" ADD CONSTRAINT user_user_type
     INITIALLY IMMEDIATE
 ;
 
+ALTER TABLE "user" RENAME TO account;
+
 -- sequences
 -- Sequence: user_subject_seq
 CREATE SEQUENCE user_subject_seq
