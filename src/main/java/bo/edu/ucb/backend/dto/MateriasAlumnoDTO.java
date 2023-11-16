@@ -10,11 +10,12 @@ public class MateriasAlumnoDTO {
     private String semester;
     private Integer year;
     private Integer parallel;
+    private boolean evaluated;
 
     public MateriasAlumnoDTO() {
     }
 
-    public MateriasAlumnoDTO(Integer userSubjectId, Integer teacherUserId, String teacherFirstName, String teacherLastName, Integer subjectId, String subjectName, String semester, Integer year, Integer parallel) {
+    public MateriasAlumnoDTO(Integer userSubjectId, Integer teacherUserId, String teacherFirstName, String teacherLastName, Integer subjectId, String subjectName, String semester, Integer year, Integer parallel, boolean evaluated) {
         this.userSubjectId = userSubjectId;
         this.teacherUserId = teacherUserId;
         this.teacherFirstName = teacherFirstName;
@@ -24,6 +25,7 @@ public class MateriasAlumnoDTO {
         this.semester = semester;
         this.year = year;
         this.parallel = parallel;
+        this.evaluated = evaluated;
     }
 
     // Getters and setters
@@ -91,18 +93,34 @@ public class MateriasAlumnoDTO {
         this.year = year;
     }
 
+    public void setParallel(Integer parallel) {
+        this.parallel = parallel;
+    }
+
+    public Integer getParallel(){
+        return this.parallel;
+    }
+
+    public boolean isEvaluated() {
+        return evaluated;
+    }    
+
+    public void setEvaluated(boolean evaluated) {
+        this.evaluated = evaluated;
+    }
+
     @Override
     public String toString() {
-        return "MateriasAlumnoDTO{" +
-                "userSubjectId=" + userSubjectId +
-                ", teacherUserId=" + teacherUserId +
-                ", teacherFirstName='" + teacherFirstName + '\'' +
-                ", teacherLastName='" + teacherLastName + '\'' +
-                ", subjectId=" + subjectId +
-                ", subjectName='" + subjectName + '\'' +
-                ", semester='" + semester + '\'' +
-                ", year=" + year +
-                ", parallel=" + parallel +
-                '}';
+        return "{" +
+            " userSubjectId='" + getUserSubjectId() + "'" +
+            ", teacherUserId='" + getTeacherUserId() + "'" +
+            ", teacherFirstName='" + getTeacherFirstName() + "'" +
+            ", teacherLastName='" + getTeacherLastName() + "'" +
+            ", subjectId='" + getSubjectId() + "'" +
+            ", subjectName='" + getSubjectName() + "'" +
+            ", semester='" + getSemester() + "'" +
+            ", year='" + getYear() + "'" +
+            ", evaluated='" + isEvaluated() + "'" +
+            "}";
     }
 }

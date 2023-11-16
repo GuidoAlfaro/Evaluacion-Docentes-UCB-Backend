@@ -18,7 +18,8 @@ public interface UserSubjectDAO extends JpaRepository<UserSubject, Integer> {
             "us.subjectId.name, " +
             "us.semester, " +
             "us.year, " +
-            "us.parallel) " +
+            "us.parallel, " +
+            "us.evaluated) " +
             "FROM UserSubject us " +
             "WHERE us.studentUserId.userId = :studentId")
     List<MateriasAlumnoDTO> findSubjectsByStudentId(@Param("studentId") Integer studentId);
