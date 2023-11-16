@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bo.edu.ucb.backend.dao.UserSubjectDAO;
-import bo.edu.ucb.backend.dto.StudentSubjects;
+import bo.edu.ucb.backend.dto.StudentSubjectsDTO;
 import bo.edu.ucb.backend.entity.UserSubject;
 
 @Service
@@ -82,7 +82,7 @@ public class UserSubjectBL {
         }
     }
 
-    public Iterable<StudentSubjects> findMateriasAlumno(Integer userId) {
+    public Iterable<StudentSubjectsDTO> findMateriasAlumno(Integer userId) {
         try {
             LOG.info("Buscando las materias del alumno con id: {}", userId);
             return userSubjectDAO.findSubjectsByStudentId(userId);

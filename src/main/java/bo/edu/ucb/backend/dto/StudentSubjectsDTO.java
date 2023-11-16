@@ -1,6 +1,6 @@
 package bo.edu.ucb.backend.dto;
 
-public class StudentSubjects {
+public class StudentSubjectsDTO {
     private Integer userSubjectId;
     private Integer teacherUserId;
     private String teacherFirstName;
@@ -12,10 +12,10 @@ public class StudentSubjects {
     private Integer parallel;
     private boolean evaluated;
 
-    public StudentSubjects() {
+    public StudentSubjectsDTO() {
     }
 
-    public StudentSubjects(Integer userSubjectId, Integer teacherUserId, String teacherFirstName, String teacherLastName, Integer subjectId, String subjectName, String semester, Integer year, Integer parallel, boolean evaluated) {
+    public StudentSubjectsDTO(Integer userSubjectId, Integer teacherUserId, String teacherFirstName, String teacherLastName, Integer subjectId, String subjectName, String semester, Integer year, Integer parallel, boolean evaluated) {
         this.userSubjectId = userSubjectId;
         this.teacherUserId = teacherUserId;
         this.teacherFirstName = teacherFirstName;
