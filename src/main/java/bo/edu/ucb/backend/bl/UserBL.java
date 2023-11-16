@@ -16,10 +16,11 @@ public class UserBL {
     public User findUserById(Integer userId) {
         try {
             LOG.info("Buscando el usuario con id: {}", userId);
-            return userDAO.findById(userId).get();
+            return userDAO.findById(userId).orElse(null);
+            // Usar "orElse(null)" para evitar una excepción si el usuario no se encuentra
         } catch (Exception ex) {
-            LOG.error("Ocurrio un error mientras se buscaba el usuario: ", ex);
-            throw new RuntimeException("Ocurrio un error mientras se buscaba el usuario");
+            LOG.error("Ocurrió un error mientras se buscaba el usuario: ", ex);
+            throw new RuntimeException("Ocurrió un error mientras se buscaba el usuario");
         }
     }
 

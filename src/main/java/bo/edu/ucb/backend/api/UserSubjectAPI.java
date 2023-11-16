@@ -73,4 +73,14 @@ public class UserSubjectAPI {
             return new ResponseDTO("400", "No se pudo eliminar el usuario materia");
         }
     }
+
+    @GetMapping("/student/{id}")
+    public ResponseDTO findUserSubjectByStudentId(@PathVariable Integer id) {
+        try {
+            return new ResponseDTO(userSubjectBL.findMateriasAlumno(id));
+        } catch (Exception ex) {
+            LOG.error("Error al encontrar el usuario materia: ", ex);
+            return new ResponseDTO("400", "No existe el usuario materia con id: " + id);
+        }
+    }
 }

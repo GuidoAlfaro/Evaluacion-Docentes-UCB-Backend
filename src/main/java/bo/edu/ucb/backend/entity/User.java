@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "user")
+@Table(name = "account")
 public class User {
     
     @Id
@@ -22,10 +22,10 @@ public class User {
     @JoinColumn(name = "user_type_id")
     private UserType userType;
 
-    @Column(name = "first_name")
+    @Column(name = "first_names")
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_names")
     private String lastName;
 
     @Column (name = "email")
@@ -54,8 +54,8 @@ public class User {
         return this.userType;
     }
 
-    public void setUserType(UserType user_type_id) {
-        this.userType = user_type_id;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     public String getFirstName() {
@@ -86,7 +86,7 @@ public class User {
     public String toString(){
         return "User{" +
                 "user_id=" + userId +
-                ", user_type_id=" + userType +
+                ", userType=" + userType +
                 ", first_name='" + firstName + '\'' +
                 ", last_name='" + lastName + '\'' +
                 ", email='" + email + '\'' +

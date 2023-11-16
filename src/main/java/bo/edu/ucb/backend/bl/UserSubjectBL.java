@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bo.edu.ucb.backend.dao.UserSubjectDAO;
+import bo.edu.ucb.backend.dto.MateriasAlumnoDTO;
 import bo.edu.ucb.backend.entity.UserSubject;
 
 @Service
@@ -78,6 +79,16 @@ public class UserSubjectBL {
             userSubjectDAO.deleteById(userSubjectId);
         } catch (Exception ex) {
             LOG.error("Ocurrio un error mientras se eliminaba el usuario materia: ", ex);
+        }
+    }
+
+    public Iterable<MateriasAlumnoDTO> findMateriasAlumno(Integer userId) {
+        try {
+            LOG.info("Buscando las materias del alumno con id: {}", userId);
+            return userSubjectDAO.findSubjectsByStudentId(userId);
+        } catch (Exception ex) {
+            LOG.error("Ocurrio un error mientras se buscaba las materias del alumno: ", ex);
+            throw new RuntimeException("Ocurrio un error mientras se buscaba las materias del alumno");
         }
     }
 

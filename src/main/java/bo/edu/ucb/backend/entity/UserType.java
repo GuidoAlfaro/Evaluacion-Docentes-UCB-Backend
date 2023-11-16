@@ -13,7 +13,7 @@ public class UserType {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer user_type_id;
+    private Integer userTypeId;
 
     @Column(name = "description")
     private String description;
@@ -21,17 +21,17 @@ public class UserType {
     public UserType() {
     }
 
-    public UserType(Integer user_type_id, String description) {
-        this.user_type_id = user_type_id;
+    public UserType(Integer userTypeId, String description) {
+        this.userTypeId = userTypeId;
         this.description = description;
     }
 
-    public Integer getUser_type_id() {
-        return this.user_type_id;
+    public Integer getUserTypeId() {
+        return this.userTypeId;
     }
 
-    public void setUser_type_id(Integer user_type_id) {
-        this.user_type_id = user_type_id;
+    public void setUserTypeId(Integer userTypeId) {
+        this.userTypeId = userTypeId;
     }
 
     public String getDescription() {
@@ -45,7 +45,7 @@ public class UserType {
     @Override
     public String toString(){
         return "UserType{" +
-                "user_type_id=" + user_type_id +
+                "userTypeId=" + userTypeId +
                 ", description='" + description + '\'' +
                 '}';
     }

@@ -259,11 +259,11 @@ INSERT INTO subject (name) VALUES
 -- Insertar relaciones entre estudiantes, docentes y materias (user_subject)
 INSERT INTO user_subject (student_user_id, teacher_user_id, subject_id, semester, year, parallel, evaluated) VALUES
 -- Relaciones para el estudiante 1
-(1, 4, 1, 'Primer Semestre', 2023, 1, false),
-(1, 5, 2, 'Primer Semestre', 2023, 1, false),
+(1, 4, 1, 'Primer', 2023, 1, false),
+(1, 5, 2, 'Primer', 2023, 1, false),
 -- Relaciones para el estudiante 2
-(2, 4, 1, 'Primer Semestre', 2023, 1, false),
-(2, 6, 2, 'Primer Semestre', 2023, 1, false),
+(2, 4, 1, 'Tercer', 2023, 1, false),
+(2, 6, 2, 'Tercer', 2023, 1, false),
 -- Relaciones para el estudiante 3
-(3, 5, 1, 'Primer Semestre', 2023, 1, false),
-(3, 6, 2, 'Primer Semestre', 2023, 1, false);
+(3, 5, 1, 'Quinto', 2023, 1, false),
+(3, 6, 2, 'Quinto', 2023, 1, false);

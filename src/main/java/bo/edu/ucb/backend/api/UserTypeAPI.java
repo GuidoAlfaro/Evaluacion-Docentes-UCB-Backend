@@ -59,7 +59,7 @@ public class UserTypeAPI {
         }
     }
 
-    @PutMapping("/{id}/")
+    @PutMapping("/{id}")
     public ResponseDTO updateUserType(@PathVariable Integer id, @RequestBody UserType userType) {
         try {
             UserType userTypeUpdated = userTypeBL.updateUserTypeById(id, userType);
@@ -74,7 +74,7 @@ public class UserTypeAPI {
         }
     }
 
-    @DeleteMapping("/{id}/")
+    @DeleteMapping("/{id}")
     public ResponseDTO deleteUserType(@PathVariable Integer id) {
         try {
             userTypeBL.deleteUserType(id);
