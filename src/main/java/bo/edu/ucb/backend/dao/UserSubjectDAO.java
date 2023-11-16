@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import bo.edu.ucb.backend.dto.MateriasAlumnoDTO;
+import bo.edu.ucb.backend.dto.StudentSubjects;
 import bo.edu.ucb.backend.entity.UserSubject;
 
 public interface UserSubjectDAO extends JpaRepository<UserSubject, Integer> {
@@ -22,5 +22,5 @@ public interface UserSubjectDAO extends JpaRepository<UserSubject, Integer> {
             "us.evaluated) " +
             "FROM UserSubject us " +
             "WHERE us.studentUserId.userId = :studentId")
-    List<MateriasAlumnoDTO> findSubjectsByStudentId(@Param("studentId") Integer studentId);
+    List<StudentSubjects> findSubjectsByStudentId(@Param("studentId") Integer studentId);
 }
