@@ -31,27 +31,31 @@ public class User {
     @Column (name = "email")
     private String email;
 
+    @Column (name = "status")
+    private boolean status;
+
     public User() {
     }
 
-    public User(Integer userId, UserType userType, String firstName, String lastName, String email) {
+    public User(Integer userId, UserType userType, String firstName, String lastName, String email, boolean status) {
         this.userId = userId;
         this.userType = userType;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.status = status;
     }
 
     public Integer getUserId() {
-        return this.userId;
+        return userId;
     }
 
-    public void setUserId(Integer user_id) {
-        this.userId = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public UserType getUserType() {
-        return this.userType;
+        return userType;
     }
 
     public void setUserType(UserType userType) {
@@ -59,37 +63,46 @@ public class User {
     }
 
     public String getFirstName() {
-        return this.firstName;
+        return firstName;
     }
 
-    public void setFirstName(String first_name) {
-        this.firstName = first_name;
+    public void setFirstName(String firstNames) {
+        this.firstName = firstNames;
     }
 
     public String getLastName() {
-        return this.lastName;
+        return lastName;
     }
 
-    public void setLastName(String last_name) {
-        this.lastName = last_name;
+    public void setLastName(String lastNames) {
+        this.lastName = lastNames;
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "User{" +
-                "user_id=" + userId +
+                "userId=" + userId +
                 ", userType=" + userType +
-                ", first_name='" + firstName + '\'' +
-                ", last_name='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

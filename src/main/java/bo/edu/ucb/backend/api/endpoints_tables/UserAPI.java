@@ -1,4 +1,4 @@
-package bo.edu.ucb.backend.api;
+package bo.edu.ucb.backend.api.endpoints_tables;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

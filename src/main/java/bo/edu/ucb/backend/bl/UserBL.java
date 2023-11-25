@@ -81,7 +81,11 @@ public class UserBL {
     public User verifyUserbyEmail(String email) {
         try {
             LOG.info("Verificando usuario con correo: {}", email);
-            return userDAO.findByEmail(email);
+            User user = userDAO.findByEmail(email);
+            if(user == null) {
+                throw new RuntimeException("No existe el usuario con correo: " + email);
+            }
+            return user;
         } catch (Exception e) {
            LOG.error("Ocurrio un error", e);
            throw new RuntimeException("No existe el usuario con correo: " + email);

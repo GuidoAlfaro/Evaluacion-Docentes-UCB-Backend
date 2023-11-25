@@ -18,12 +18,16 @@ public class UserType {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "status")
+    private boolean status;
+
     public UserType() {
     }
 
-    public UserType(Integer userTypeId, String description) {
+    public UserType(Integer userTypeId, String description, boolean status) {
         this.userTypeId = userTypeId;
         this.description = description;
+        this.status = status;
     }
 
     public Integer getUserTypeId() {
@@ -42,11 +46,20 @@ public class UserType {
         this.description = description;
     }
 
+    public Boolean getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     @Override
-    public String toString(){
-        return "UserType{" +
-                "userTypeId=" + userTypeId +
-                ", description='" + description + '\'' +
-                '}';
+    public String toString() {
+        return "{" +
+            " userTypeId='" + getUserTypeId() + "'" +
+            ", description='" + getDescription() + "'" +
+            ", status='" + getStatus() + "'" +
+            "}";
     }
 }

@@ -1,22 +1,23 @@
 package bo.edu.ucb.backend.dto;
 
 public class StudentSubjectsDTO {
-    private Integer userSubjectId;
+
+    private Integer enrollmentId;
     private Integer teacherUserId;
     private String teacherFirstName;
     private String teacherLastName;
     private Integer subjectId;
     private String subjectName;
     private String semester;
-    private Integer year;
-    private Integer parallel;
+    private String year;
+    private String parallel;
     private boolean evaluated;
 
     public StudentSubjectsDTO() {
     }
 
-    public StudentSubjectsDTO(Integer userSubjectId, Integer teacherUserId, String teacherFirstName, String teacherLastName, Integer subjectId, String subjectName, String semester, Integer year, Integer parallel, boolean evaluated) {
-        this.userSubjectId = userSubjectId;
+    public StudentSubjectsDTO(Integer enrollmentId, Integer teacherUserId, String teacherFirstName, String teacherLastName, Integer subjectId, String subjectName, String semester, String year, String parallel, boolean evaluated) {
+        this.enrollmentId = enrollmentId;
         this.teacherUserId = teacherUserId;
         this.teacherFirstName = teacherFirstName;
         this.teacherLastName = teacherLastName;
@@ -28,17 +29,16 @@ public class StudentSubjectsDTO {
         this.evaluated = evaluated;
     }
 
-    // Getters and setters
-    public Integer getUserSubjectId() {
-        return this.userSubjectId;
+    public Integer getEnrollmentId() {
+        return enrollmentId;
     }
 
-    public void setUserSubjectId(Integer userSubjectId) {
-        this.userSubjectId = userSubjectId;
+    public void setEnrollmentId(Integer enrollmentId) {
+        this.enrollmentId = enrollmentId;
     }
 
     public Integer getTeacherUserId() {
-        return this.teacherUserId;
+        return teacherUserId;
     }
 
     public void setTeacherUserId(Integer teacherUserId) {
@@ -46,7 +46,7 @@ public class StudentSubjectsDTO {
     }
 
     public String getTeacherFirstName() {
-        return this.teacherFirstName;
+        return teacherFirstName;
     }
 
     public void setTeacherFirstName(String teacherFirstName) {
@@ -54,7 +54,7 @@ public class StudentSubjectsDTO {
     }
 
     public String getTeacherLastName() {
-        return this.teacherLastName;
+        return teacherLastName;
     }
 
     public void setTeacherLastName(String teacherLastName) {
@@ -62,7 +62,7 @@ public class StudentSubjectsDTO {
     }
 
     public Integer getSubjectId() {
-        return this.subjectId;
+        return subjectId;
     }
 
     public void setSubjectId(Integer subjectId) {
@@ -70,40 +70,40 @@ public class StudentSubjectsDTO {
     }
 
     public String getSubjectName() {
-        return this.subjectName;
+        return subjectName;
     }
 
-    public void setSubjectName(String name) {
-        this.subjectName = name;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
     public String getSemester() {
-        return this.semester;
+        return semester;
     }
 
     public void setSemester(String semester) {
         this.semester = semester;
     }
 
-    public Integer getYear() {
-        return this.year;
+    public String getYear() {
+        return year;
     }
 
-    public void setYear(Integer year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public void setParallel(Integer parallel) {
-        this.parallel = parallel;
+    public String getParallel() {
+        return parallel;
     }
 
-    public Integer getParallel(){
-        return this.parallel;
+    public void setParallel(String parallel) {
+        this.parallel = parallel;
     }
 
     public boolean isEvaluated() {
         return evaluated;
-    }    
+    }
 
     public void setEvaluated(boolean evaluated) {
         this.evaluated = evaluated;
@@ -111,16 +111,17 @@ public class StudentSubjectsDTO {
 
     @Override
     public String toString() {
-        return "{" +
-            " userSubjectId='" + getUserSubjectId() + "'" +
-            ", teacherUserId='" + getTeacherUserId() + "'" +
-            ", teacherFirstName='" + getTeacherFirstName() + "'" +
-            ", teacherLastName='" + getTeacherLastName() + "'" +
-            ", subjectId='" + getSubjectId() + "'" +
-            ", subjectName='" + getSubjectName() + "'" +
-            ", semester='" + getSemester() + "'" +
-            ", year='" + getYear() + "'" +
-            ", evaluated='" + isEvaluated() + "'" +
-            "}";
+        return "StudentSubjectsDTO{" +
+                "enrollmentId=" + enrollmentId +
+                ", teacherUserId=" + teacherUserId +
+                ", teacherFirstName='" + teacherFirstName + '\'' +
+                ", teacherLastName='" + teacherLastName + '\'' +
+                ", subjectId=" + subjectId +
+                ", subjectName='" + subjectName + '\'' +
+                ", semester='" + semester + '\'' +
+                ", year='" + year + '\'' +
+                ", parallel='" + parallel + '\'' +
+                ", evaluated=" + evaluated +
+                '}';
     }
 }
