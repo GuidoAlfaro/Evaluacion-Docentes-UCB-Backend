@@ -21,7 +21,7 @@ public class AdminBL {
             Question newQuestion = new Question();
             newQuestion.setQuestionText(question.getQuestionText());
             newQuestion.setEvaluation(evaluation);
-            newQuestion.setStatus(true);
+            newQuestion.setStatus((short) 1);
             questionDAO.save(newQuestion);
         }
         return questions;

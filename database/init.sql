@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2023-11-23 21:30:54.184
+-- Last modification date: 2023-11-28 03:05:36.906
 
 -- tables
 -- Table: answer
@@ -8,9 +8,26 @@ CREATE TABLE answer (
                         subject_evaluation_id int  NOT NULL,
                         question_id int  NOT NULL,
                         student_user_id int  NOT NULL,
-                        answer_text varchar(500)  NOT NULL,
-                        status boolean  NOT NULL,
+                        answer_text varchar(200)  NOT NULL,
+                        status smallint  NOT NULL,
+                        tx_user varchar(255)  NOT NULL,
+                        tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                        tx_host varchar(255)  NOT NULL,
                         CONSTRAINT answer_pk PRIMARY KEY (answer_id)
+);
+
+-- Table: detailed_result
+CREATE TABLE detailed_result (
+                                 detailed_result_id serial  NOT NULL,
+                                 teacher_subject_id int  NOT NULL,
+                                 parameter_id int  NOT NULL,
+                                 message_for_teacher text  NULL,
+                                 parameter_calification decimal(4,1)  NULL,
+                                 status smallint  NOT NULL,
+                                 tx_user varchar(255)  NOT NULL,
+                                 tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                                 tx_host varchar(255)  NOT NULL,
+                                 CONSTRAINT detailed_result_pk PRIMARY KEY (detailed_result_id)
 );
 
 -- Table: evaluation
@@ -20,8 +37,106 @@ CREATE TABLE evaluation (
                             start_date date  NOT NULL,
                             end_date date  NOT NULL,
                             template boolean  NOT NULL,
-                            status boolean  NOT NULL,
+                            status smallint  NOT NULL,
+                            tx_user varchar(255)  NOT NULL,
+                            tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                            tx_host varchar(255)  NOT NULL,
                             CONSTRAINT evaluation_pk PRIMARY KEY (evaluation_id)
+);
+
+-- Table: h_answer
+CREATE TABLE h_answer (
+                          h_answer_id serial  NOT NULL,
+                          h_date timestamp  NOT NULL,
+                          answer_id int  NOT NULL,
+                          answer_text varchar(200)  NULL,
+                          status smallint  NULL,
+                          tx_user varchar(255)  NULL,
+                          tx_date timestamp  NULL,
+                          tx_host varchar(255)  NULL,
+                          CONSTRAINT h_answer_pk PRIMARY KEY (h_answer_id)
+);
+
+-- Table: h_detailed_result
+CREATE TABLE h_detailed_result (
+                                   h_detailed_result_id serial  NOT NULL,
+                                   h_date timestamp  NOT NULL,
+                                   detailed_result_id int  NOT NULL,
+                                   message_for_teacher text  NULL,
+                                   parameter_calification decimal(4,1)  NULL,
+                                   status smallint  NULL,
+                                   tx_user varchar(255)  NULL,
+                                   tx_date timestamp  NULL,
+                                   tx_host varchar(255)  NULL,
+                                   CONSTRAINT h_detailed_result_pk PRIMARY KEY (h_detailed_result_id)
+);
+
+-- Table: h_evaluation
+CREATE TABLE h_evaluation (
+                              h_evaluation_id serial  NOT NULL,
+                              h_date timestamp  NOT NULL,
+                              evaluation_id int  NOT NULL,
+                              description varchar(255)  NULL,
+                              start_date date  NULL,
+                              end_date date  NULL,
+                              template boolean  NULL,
+                              status smallint  NULL,
+                              tx_user varchar(255)  NULL,
+                              tx_date timestamp  NULL,
+                              tx_host varchar(255)  NULL,
+                              CONSTRAINT h_evaluation_pk PRIMARY KEY (h_evaluation_id)
+);
+
+-- Table: h_subject_evaluation
+CREATE TABLE h_subject_evaluation (
+                                      h_subject_evaluation_id serial  NOT NULL,
+                                      h_date timestamp  NOT NULL,
+                                      subject_evaluation_id int  NOT NULL,
+                                      status smallint  NULL,
+                                      tx_user varchar(255)  NULL,
+                                      tx_date timestamp  NULL,
+                                      tx_host varchar(255)  NULL,
+                                      CONSTRAINT h_subject_evaluation_pk PRIMARY KEY (h_subject_evaluation_id)
+);
+
+-- Table: h_subject_result
+CREATE TABLE h_subject_result (
+                                  h_subject_result_id serial  NOT NULL,
+                                  h_date timestamp  NOT NULL,
+                                  subject_result_id int  NOT NULL,
+                                  overall_calification decimal(4,1)  NULL,
+                                  status smallint  NULL,
+                                  tx_user varchar(255)  NULL,
+                                  tx_date timestamp  NULL,
+                                  tx_host varchar(255)  NULL,
+                                  CONSTRAINT h_subject_result_pk PRIMARY KEY (h_subject_result_id)
+);
+
+-- Table: h_teacher_subject
+CREATE TABLE h_teacher_subject (
+                                   h_teacher_subject_id serial  NOT NULL,
+                                   h_date timestamp  NOT NULL,
+                                   teacher_subject_id int  NOT NULL,
+                                   status smallint  NULL,
+                                   tx_user varchar(255)  NULL,
+                                   tx_date timestamp  NULL,
+                                   tx_host varchar(255)  NULL,
+                                   CONSTRAINT h_teacher_subject_pk PRIMARY KEY (h_teacher_subject_id)
+);
+
+-- Table: h_user
+CREATE TABLE h_user (
+                        h_user_id serial  NOT NULL,
+                        h_date timestamp  NOT NULL,
+                        user_id int  NOT NULL,
+                        first_names varchar(255)  NULL,
+                        last_names varchar(255)  NULL,
+                        email varchar(255)  NULL,
+                        status smallint  NULL,
+                        tx_user varchar(255)  NULL,
+                        tx_date timestamp  NULL,
+                        tx_host varchar(255)  NULL,
+                        CONSTRAINT h_user_pk PRIMARY KEY (h_user_id)
 );
 
 -- Table: notification
@@ -30,16 +145,34 @@ CREATE TABLE notification (
                               student_user_id int  NOT NULL,
                               subject_evaluation_id int  NOT NULL,
                               date date  NOT NULL,
-                              status boolean  NOT NULL,
+                              status smallint  NOT NULL,
+                              tx_user varchar(255)  NOT NULL,
+                              tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                              tx_host varchar(255)  NOT NULL,
                               CONSTRAINT notification_pk PRIMARY KEY (notification_id)
+);
+
+-- Table: parameter
+CREATE TABLE parameter (
+                           parameter_id serial  NOT NULL,
+                           description varchar(255)  NOT NULL,
+                           status smallint  NOT NULL,
+                           tx_user varchar(255)  NOT NULL,
+                           tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                           tx_host varchar(255)  NOT NULL,
+                           CONSTRAINT parameter_pk PRIMARY KEY (parameter_id)
 );
 
 -- Table: question
 CREATE TABLE question (
                           question_id serial  NOT NULL,
+                          parameter_id int  NOT NULL,
                           evaluation_id int  NOT NULL,
-                          question_text varchar(500)  NOT NULL,
-                          status boolean  NOT NULL,
+                          question_text varchar(200)  NOT NULL,
+                          status smallint  NOT NULL,
+                          tx_user varchar(255)  NOT NULL,
+                          tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                          tx_host varchar(255)  NOT NULL,
                           CONSTRAINT question_pk PRIMARY KEY (question_id)
 );
 
@@ -50,7 +183,10 @@ CREATE TABLE subject (
                          parallel int  NOT NULL,
                          semester varchar(10)  NOT NULL,
                          year int  NOT NULL,
-                         status boolean  NOT NULL,
+                         status smallint  NOT NULL,
+                         tx_user varchar(255)  NOT NULL,
+                         tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                         tx_host varchar(255)  NOT NULL,
                          CONSTRAINT subject_pk PRIMARY KEY (subject_id)
 );
 
@@ -60,7 +196,10 @@ CREATE TABLE subject_enrollment (
                                     student_user_id int  NOT NULL,
                                     subject_id int  NOT NULL,
                                     evaluated boolean  NOT NULL,
-                                    status boolean  NOT NULL,
+                                    status smallint  NOT NULL,
+                                    tx_user varchar(255)  NOT NULL,
+                                    tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                                    tx_host varchar(255)  NOT NULL,
                                     CONSTRAINT subject_enrollment_pk PRIMARY KEY (enrollment_id)
 );
 
@@ -69,7 +208,10 @@ CREATE TABLE subject_evaluation (
                                     subject_evaluation_id serial  NOT NULL,
                                     subject_id int  NOT NULL,
                                     evaluation_id int  NOT NULL,
-                                    status boolean  NOT NULL,
+                                    status smallint  NOT NULL,
+                                    tx_user varchar(255)  NOT NULL,
+                                    tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                                    tx_host varchar(255)  NOT NULL,
                                     CONSTRAINT subject_evaluation_pk PRIMARY KEY (subject_evaluation_id)
 );
 
@@ -77,8 +219,11 @@ CREATE TABLE subject_evaluation (
 CREATE TABLE subject_result (
                                 subject_result_id serial  NOT NULL,
                                 teacher_subject_id int  NOT NULL,
-                                calification decimal(5,2)  NULL,
-                                status boolean  NOT NULL,
+                                overall_calification decimal(4,1)  NULL,
+                                status smallint  NOT NULL,
+                                tx_user varchar(255)  NOT NULL,
+                                tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                                tx_host varchar(255)  NOT NULL,
                                 CONSTRAINT subject_result_pk PRIMARY KEY (subject_result_id)
 );
 
@@ -86,10 +231,13 @@ CREATE TABLE subject_result (
 CREATE TABLE teacher_query (
                                teacher_query_id serial  NOT NULL,
                                teacher_subject_id int  NOT NULL,
-                               query_text varchar(500)  NOT NULL,
-                               api_response varchar(500)  NULL,
+                               query_text varchar(200)  NOT NULL,
+                               api_response text  NULL,
                                date date  NOT NULL,
-                               status boolean  NOT NULL,
+                               status smallint  NOT NULL,
+                               tx_user varchar(255)  NOT NULL,
+                               tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                               tx_host varchar(255)  NOT NULL,
                                CONSTRAINT teacher_query_pk PRIMARY KEY (teacher_query_id)
 );
 
@@ -98,7 +246,10 @@ CREATE TABLE teacher_subject (
                                  teacher_subject_id serial  NOT NULL,
                                  teacher_user_id int  NOT NULL,
                                  subject_id int  NOT NULL,
-                                 status boolean  NOT NULL,
+                                 status smallint  NOT NULL,
+                                 tx_user varchar(255)  NOT NULL,
+                                 tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                                 tx_host varchar(255)  NOT NULL,
                                  CONSTRAINT teacher_subject_pk PRIMARY KEY (teacher_subject_id)
 );
 
@@ -109,7 +260,10 @@ CREATE TABLE "user" (
                         first_names varchar(255)  NOT NULL,
                         last_names varchar(255)  NOT NULL,
                         email varchar(255)  NOT NULL,
-                        status boolean  NOT NULL,
+                        status smallint  NOT NULL,
+                        tx_user varchar(255)  NOT NULL,
+                        tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                        tx_host varchar(255)  NOT NULL,
                         CONSTRAINT user_pk PRIMARY KEY (user_id)
 );
 
@@ -117,7 +271,10 @@ CREATE TABLE "user" (
 CREATE TABLE user_type (
                            user_type_id serial  NOT NULL,
                            description varchar(30)  NOT NULL,
-                           status boolean  NOT NULL,
+                           status smallint  NOT NULL,
+                           tx_user varchar(255)  NOT NULL,
+                           tx_date timestamp  DEFAULT CURRENT_TIMESTAMP,
+                           tx_host varchar(255)  NOT NULL,
                            CONSTRAINT user_type_pk PRIMARY KEY (user_type_id)
 );
 
@@ -146,6 +303,22 @@ ALTER TABLE answer ADD CONSTRAINT answer_user
             INITIALLY IMMEDIATE
 ;
 
+-- Reference: detailed_results_parameter (table: detailed_result)
+ALTER TABLE detailed_result ADD CONSTRAINT detailed_results_parameter
+    FOREIGN KEY (parameter_id)
+        REFERENCES parameter (parameter_id)
+        NOT DEFERRABLE
+            INITIALLY IMMEDIATE
+;
+
+-- Reference: detailed_results_teacher_subject (table: detailed_result)
+ALTER TABLE detailed_result ADD CONSTRAINT detailed_results_teacher_subject
+    FOREIGN KEY (teacher_subject_id)
+        REFERENCES teacher_subject (teacher_subject_id)
+        NOT DEFERRABLE
+            INITIALLY IMMEDIATE
+;
+
 -- Reference: notification_subject_evaluation (table: notification)
 ALTER TABLE notification ADD CONSTRAINT notification_subject_evaluation
     FOREIGN KEY (subject_evaluation_id)
@@ -166,6 +339,14 @@ ALTER TABLE notification ADD CONSTRAINT notification_user
 ALTER TABLE question ADD CONSTRAINT question_evaluation
     FOREIGN KEY (evaluation_id)
         REFERENCES evaluation (evaluation_id)
+        NOT DEFERRABLE
+            INITIALLY IMMEDIATE
+;
+
+-- Reference: question_parameter (table: question)
+ALTER TABLE question ADD CONSTRAINT question_parameter
+    FOREIGN KEY (parameter_id)
+        REFERENCES parameter (parameter_id)
         NOT DEFERRABLE
             INITIALLY IMMEDIATE
 ;
@@ -244,39 +425,39 @@ ALTER TABLE "user" ADD CONSTRAINT user_user_type
 
 -- End of file.
 
+
 ALTER TABLE "user" RENAME TO account;
 
 
 -- Inserts para User Type
-INSERT INTO user_type (description, status) VALUES
-('Student', true),
-('Teacher', true);
--- Inserts para Accounts (Alumnos)
-INSERT INTO account (user_type_id, first_names, last_names, email, status) VALUES
-(1, 'Juan', 'Rodriguez', 'juan.rodriguez@ucb.edu.bo', true),
-(1, 'Melany', 'Kaune', 'melany.kaune@ucb.edu.bo', true),
-(1, 'Guido', 'Alfaro', 'guido.alfaro@ucb.edu.bo', true);
+INSERT INTO user_type (description, status, tx_user, tx_host) VALUES
+('Student', 1, 'guidoalfaro', '192.168.0.227'),
+('Teacher', 1, 'guidoalfaro', '192.168.0.227'),
+('Admin', 1, 'guidoalfaro', '192.168.0.227');
 
+-- Inserts para Accounts (Alumnos)
+INSERT INTO account (user_type_id, first_names, last_names, email, status, tx_user, tx_host) VALUES
+(1, 'Juan', 'Rodriguez', 'juan.rodriguez@ucb.edu.bo', 1, 'guidoalfaro', '192.168.0.227'),
+(1, 'Melany', 'Kaune', 'melany.kaune@ucb.edu.bo', 1, 'guidoalfaro', '192.168.0.227');
 -- Inserts para Accounts (Docentes)
-INSERT INTO account (user_type_id, first_names, last_names, email, status) VALUES
-(2, 'ORLANDO', 'RIVERA JURADO', 'docente1@example.com', true),
-(2, 'ERNESTO OMAR', 'CAMPOHERMOSO ALCÓN', 'docente2@example.com', true),
-(2, 'MARÍA LUCERO', 'YAÑEZ GUZMÁN', 'docente3@example.com', true);
+INSERT INTO account (user_type_id, first_names, last_names, email, status, tx_user, tx_host) VALUES
+(2, 'ORLANDO', 'RIVERA JURADO', 'docente1@example.com', 1, 'guidoalfaro', '192.168.0.227'),
+(2, 'ERNESTO OMAR', 'CAMPOHERMOSO ALCÓN', 'docente2@example.com', 1, 'guidoalfaro', '192.168.0.227'),
+(2, 'MARÍA LUCERO', 'YAÑEZ GUZMÁN', 'docente3@example.com', 1, 'guidoalfaro', '192.168.0.227');
 
 -- Inserts para Subjects (Materias)
-INSERT INTO subject (name, parallel, semester, year, status) VALUES
-('SIS-111 INTRODUCCIÓN A LA PROGRAMACIÓN', 1, '1-2021', 2021, true),
-
-('SIS-213 INGENIERÍA DEL SOFTWARE', 1, '1-2021', 2021, true);
+INSERT INTO subject (name, parallel, semester, year, status, tx_user, tx_host) VALUES
+('SIS-111 INTRODUCCIÓN A LA PROGRAMACIÓN', 1, '1-2021', 2021, 1, 'guidoalfaro', '192.168.0.227'),
+('SIS-213 INGENIERÍA DEL SOFTWARE', 1, '1-2021', 2021, 1, 'guidoalfaro', '192.168.0.227');
 
 -- Inserts para Subject Enrollment (Inscripción de Alumnos en Materias)
-INSERT INTO subject_enrollment (student_user_id, subject_id, evaluated, status) VALUES
-(1, 1, false, true),
-(1, 2, false, true),
-(2, 1, false, true),
-(3, 2, false, true);
+INSERT INTO subject_enrollment (student_user_id, subject_id, evaluated, status, tx_user, tx_host) VALUES
+(1, 1, false, 1, 'guidoalfaro', '192.168.0.227'),
+(1, 2, false, 1, 'guidoalfaro', '192.168.0.227'),
+(2, 1, false, 1, 'guidoalfaro', '192.168.0.227'),
+(3, 2, false, 1, 'guidoalfaro', '192.168.0.227');
+
 -- Inserts para Teacher Subject (Asignación de Docentes a Materias)
-INSERT INTO teacher_subject (teacher_user_id, subject_id, status) VALUES
-(4, 1, true),
-(5, 2, true),
-(6, 1, true);
+INSERT INTO teacher_subject (teacher_user_id, subject_id, status, tx_user, tx_host) VALUES
+(4, 1, 1, 'guidoalfaro', '192.168.0.227'),
+(5, 2, 1, 'guidoalfaro', '192.168.0.227');

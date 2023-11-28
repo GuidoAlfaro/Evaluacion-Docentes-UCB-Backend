@@ -28,18 +28,29 @@ public class Subject {
     private String year;
 
     @Column(name = "status")
-    private boolean status;
+    private short status;
 
+    @Column(name = "tx_user")
+    private String txUser;
+
+    @Column(name = "tx_date")
+    private String txDate;
+
+    @Column(name = "tx_host")
+    private String txHost;
     public Subject() {
     }
 
-    public Subject(Integer subjectId, String name, String parallel, String semester, String year, boolean status) {
+    public Subject(Integer subjectId, String name, String parallel, String semester, String year, short status, String txUser, String txDate, String txHost) {
         this.subjectId = subjectId;
         this.name = name;
         this.parallel = parallel;
         this.semester = semester;
         this.year = year;
         this.status = status;
+        this.txUser = txUser;
+        this.txDate = txDate;
+        this.txHost = txHost;
     }
 
     public Integer getSubjectId() {
@@ -82,12 +93,36 @@ public class Subject {
         this.year = year;
     }
 
-    public Boolean getStatus() {
+    public short getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(short status) {
         this.status = status;
+    }
+
+    public String getTxUser() {
+        return txUser;
+    }
+
+    public void setTxUser(String txUser) {
+        this.txUser = txUser;
+    }
+
+    public String getTxDate() {
+        return txDate;
+    }
+
+    public void setTxDate(String txDate) {
+        this.txDate = txDate;
+    }
+
+    public String getTxHost() {
+        return txHost;
+    }
+
+    public void setTxHost(String txHost) {
+        this.txHost = txHost;
     }
 
     @Override
@@ -99,6 +134,9 @@ public class Subject {
                 ", semester='" + semester + '\'' +
                 ", year='" + year + '\'' +
                 ", status=" + status +
+                ", txUser='" + txUser + '\'' +
+                ", txDate='" + txDate + '\'' +
+                ", txHost='" + txHost + '\'' +
                 '}';
     }
 }

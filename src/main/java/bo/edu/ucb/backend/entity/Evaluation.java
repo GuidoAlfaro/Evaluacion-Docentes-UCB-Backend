@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -29,18 +31,30 @@ public class Evaluation {
     private boolean template;
 
    @Column(name = "status")
-    private boolean status;
+    private short status;
+
+   @Column(name = "tx_user")
+    private String txUser;
+
+    @Column(name = "tx_date")
+    private Timestamp txDate;
+
+    @Column(name = "tx_host")
+    private String txHost;
 
     public Evaluation() {
     }
 
-    public Evaluation(Integer evaluationId, String description, Date startDate, Date endDate, boolean template, boolean status) {
+    public Evaluation(Integer evaluationId, String description, Date startDate, Date endDate, boolean template, short status, String txUser, Timestamp txDate, String txHost) {
         this.evaluationId = evaluationId;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.template = template;
         this.status = status;
+        this.txUser = txUser;
+        this.txDate = txDate;
+        this.txHost = txHost;
     }
 
     public Integer getEvaluationId() {
@@ -83,12 +97,36 @@ public class Evaluation {
         this.template = template;
     }
 
-    public boolean isStatus() {
+    public short getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(short status) {
         this.status = status;
+    }
+
+    public String getTxUser() {
+        return txUser;
+    }
+
+    public void setTxUser(String txUser) {
+        this.txUser = txUser;
+    }
+
+    public Timestamp getTxDate() {
+        return txDate;
+    }
+
+    public void setTxDate(Timestamp txDate) {
+        this.txDate = txDate;
+    }
+
+    public String getTxHost() {
+        return txHost;
+    }
+
+    public void setTxHost(String txHost) {
+        this.txHost = txHost;
     }
 
     @Override
@@ -100,6 +138,9 @@ public class Evaluation {
                 ", endDate=" + endDate +
                 ", template=" + template +
                 ", status=" + status +
+                ", txUser='" + txUser + '\'' +
+                ", txDate=" + txDate +
+                ", txHost='" + txHost + '\'' +
                 '}';
     }
 }

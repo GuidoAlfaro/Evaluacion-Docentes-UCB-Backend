@@ -10,12 +10,11 @@ import jakarta.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "user_type")
-public class UserType {
-    
+@Table(name = "parameter")
+public class Parameter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userTypeId;
+    private Integer parameterId;
 
     @Column(name = "description")
     private String description;
@@ -32,11 +31,11 @@ public class UserType {
     @Column(name = "tx_host")
     private String txHost;
 
-    public UserType() {
+    public Parameter() {
     }
 
-    public UserType(Integer userTypeId, String description, short status, String txUser, Timestamp txDate, String txHost) {
-        this.userTypeId = userTypeId;
+    public Parameter(Integer parameterId, String description, short status, String txUser, Timestamp txDate, String txHost) {
+        this.parameterId = parameterId;
         this.description = description;
         this.status = status;
         this.txUser = txUser;
@@ -44,12 +43,12 @@ public class UserType {
         this.txHost = txHost;
     }
 
-    public Integer getUserTypeId() {
-        return userTypeId;
+    public Integer getParameterId() {
+        return parameterId;
     }
 
-    public void setUserTypeId(Integer userTypeId) {
-        this.userTypeId = userTypeId;
+    public void setParameterId(Integer parameterId) {
+        this.parameterId = parameterId;
     }
 
     public String getDescription() {
@@ -94,12 +93,12 @@ public class UserType {
 
     @Override
     public String toString() {
-        return "UserType{" +
-                "userTypeId=" + userTypeId +
+        return "Parameter{" +
+                "parameterId=" + parameterId +
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 ", txUser='" + txUser + '\'' +
-                ", txDate=" + txDate +
+                ", txDate='" + txDate + '\'' +
                 ", txHost='" + txHost + '\'' +
                 '}';
     }

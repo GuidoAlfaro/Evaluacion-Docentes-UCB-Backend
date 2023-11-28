@@ -11,12 +11,12 @@ import java.util.List;
 
 public interface UserDAO extends JpaRepository<User, Integer>{
     User findByEmail(String email);
-    @Query("SELECT new bo.edu.ucb.backend.dto.StudentSubjectsDTO(se.enrollmentId, ts.teacherUserId.userId, u.firstName, u.lastName, s.subjectId, s.name, s.semester, s.year, s.parallel, se.evaluated) " +
+    @Query("SELECT new bo.edu.ucb.backend.dto.StudentSubjectsDTO(se.enrollmentId, ts.teacher.userId, u.firstNames, u.lastNames, s.subjectId, s.name, s.semester, s.year, s.parallel, se.evaluated) " +
             "FROM SubjectEnrollment se " +
-            "JOIN TeacherSubject ts ON se.subjectId.subjectId = ts.subjectId.subjectId " +
-            "JOIN User u ON ts.teacherUserId.userId = u.userId " +
-            "JOIN Subject s ON se.subjectId.subjectId = s.subjectId " +
-            "WHERE se.studentUserId.userId = :studentId AND se.status = true AND ts.status = true")
+            "JOIN TeacherSubject ts ON se.subject.subjectId = ts.subject.subjectId " +
+            "JOIN User u ON ts.teacher.userId = u.userId " +
+            "JOIN Subject s ON se.subject.subjectId = s.subjectId " +
+            "WHERE se.student.userId = :studentId AND se.status = 1 AND ts.status = 1")
     List<StudentSubjectsDTO> getStudentSubjectsById(@Param("studentId") Integer studentId);
 
 }

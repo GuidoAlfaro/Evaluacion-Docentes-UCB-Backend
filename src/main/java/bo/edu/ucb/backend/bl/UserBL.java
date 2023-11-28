@@ -58,8 +58,8 @@ public class UserBL {
         try {
             LOG.info("Actualizando el usuario con id: {}", userId);
             User currentUser = userDAO.findById(userId).get();
-            currentUser.setFirstName(user.getFirstName());
-            currentUser.setLastName(user.getLastName());
+            currentUser.setFirstNames(user.getFirstNames());
+            currentUser.setLastNames(user.getLastNames());
             currentUser.setEmail(user.getEmail());
             currentUser.setUserType(user.getUserType());
             return userDAO.save(currentUser);

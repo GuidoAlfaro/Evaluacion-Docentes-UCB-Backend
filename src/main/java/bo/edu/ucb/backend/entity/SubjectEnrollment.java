@@ -9,6 +9,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.sql.Timestamp;
+
 @Entity
 @Table(name = "subject_enrollment")
 public class SubjectEnrollment {
@@ -18,27 +20,39 @@ public class SubjectEnrollment {
 
     @ManyToOne
     @JoinColumn(name = "student_user_id")
-    private User studentUserId;
+    private User student;
 
     @ManyToOne
     @JoinColumn(name = "subject_id")
-    private Subject subjectId;
+    private Subject subject;
 
     @Column(name = "evaluated")
     private boolean evaluated;
 
     @Column(name = "status")
-    private boolean status;
+    private short status;
+
+    @Column(name = "tx_user")
+    private String txUser;
+
+    @Column(name = "tx_date")
+    private Timestamp txDate;
+
+    @Column(name = "tx_host")
+    private String txHost;
 
     public SubjectEnrollment() {
     }
 
-    public SubjectEnrollment(Integer enrollmentId, User studentUserId, Subject subjectId, boolean evaluated, boolean status) {
+    public SubjectEnrollment(Integer enrollmentId, User student, Subject subject, boolean evaluated, short status, String txUser, Timestamp txDate, String txHost) {
         this.enrollmentId = enrollmentId;
-        this.studentUserId = studentUserId;
-        this.subjectId = subjectId;
+        this.student = student;
+        this.subject = subject;
         this.evaluated = evaluated;
         this.status = status;
+        this.txUser = txUser;
+        this.txDate = txDate;
+        this.txHost = txHost;
     }
 
     public Integer getEnrollmentId() {
@@ -49,20 +63,20 @@ public class SubjectEnrollment {
         this.enrollmentId = enrollmentId;
     }
 
-    public User getStudentUserId() {
-        return studentUserId;
+    public User getStudent() {
+        return student;
     }
 
-    public void setStudentUserId(User studentUserId) {
-        this.studentUserId = studentUserId;
+    public void setStudent(User student) {
+        this.student = student;
     }
 
-    public Subject getSubjectId() {
-        return subjectId;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setSubjectId(Subject subjectId) {
-        this.subjectId = subjectId;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public boolean isEvaluated() {
@@ -73,22 +87,49 @@ public class SubjectEnrollment {
         this.evaluated = evaluated;
     }
 
-    public boolean isStatus() {
+    public short getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(short status) {
         this.status = status;
+    }
+
+    public String getTxUser() {
+        return txUser;
+    }
+
+    public void setTxUser(String txUser) {
+        this.txUser = txUser;
+    }
+
+    public Timestamp getTxDate() {
+        return txDate;
+    }
+
+    public void setTxDate(Timestamp txDate) {
+        this.txDate = txDate;
+    }
+
+    public String getTxHost() {
+        return txHost;
+    }
+
+    public void setTxHost(String txHost) {
+        this.txHost = txHost;
     }
 
     @Override
     public String toString() {
-        return "{" +
-            " enrollmentId='" + getEnrollmentId() + "'" +
-            ", studentUserId='" + getStudentUserId() + "'" +
-            ", subjectId='" + getSubjectId() + "'" +
-            ", evaluated='" + isEvaluated() + "'" +
-            ", status='" + isStatus() + "'" +
-            "}";
+        return "SubjectEnrollment{" +
+                "enrollmentId=" + enrollmentId +
+                ", student=" + student +
+                ", subject=" + subject +
+                ", evaluated=" + evaluated +
+                ", status=" + status +
+                ", txUser='" + txUser + '\'' +
+                ", txDate=" + txDate +
+                ", txHost='" + txHost + '\'' +
+                '}';
     }
 }
