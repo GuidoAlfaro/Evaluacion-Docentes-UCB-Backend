@@ -1,6 +1,7 @@
 package bo.edu.ucb.backend.bl;
 
 import bo.edu.ucb.backend.dao.QuestionDAO;
+import bo.edu.ucb.backend.dto.QuestionDTO;
 import bo.edu.ucb.backend.entity.Question;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +56,17 @@ public class QuestionBL {
         } catch (Exception ex) {
             LOG.error("Ocurrio un error leyendo las preguntas", ex);
             throw ex;
+        }
+    }
+
+    //vista estudiante
+    public Iterable<QuestionDTO> findQuestions() {
+        try {
+            LOG.info("Buscando las preguntas de la evaluacion");
+            return questionDAO.getQuestionsByTemplateEvaluation();
+        } catch (Exception ex) {
+            LOG.error("Ocurrio un error mientras se buscaba las preguntas de la evaluacion: ", ex);
+            throw new RuntimeException("Ocurrio un error mientras se buscaba las preguntas de la evaluacion");
         }
     }
 }

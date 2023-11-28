@@ -461,3 +461,39 @@ INSERT INTO subject_enrollment (student_user_id, subject_id, evaluated, status, 
 INSERT INTO teacher_subject (teacher_user_id, subject_id, status, tx_user, tx_host) VALUES
 (4, 1, 1, 'guidoalfaro', '192.168.0.227'),
 (5, 2, 1, 'guidoalfaro', '192.168.0.227');
+
+-- Inserts para Parámetros
+INSERT INTO parameter (description, status, tx_user, tx_date, tx_host) VALUES
+('Puntualidad', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+('Claridad en la explicación', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+('Dominio del contenido', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+('Interacción con los estudiantes', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+('Uso de recursos didácticos', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+('Retroalimentación y evaluación', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+('Disponibilidad y apoyo fuera de clase', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+('Fomento del pensamiento crítico', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+('Adaptabilidad y flexibilidad', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+('Innovación en la enseñanza', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+('Gestión del aula', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+('Promoción de inclusión y respeto', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227');
+
+-- Inserts para Evaluation
+INSERT INTO evaluation (description, start_date, end_date, template, status, tx_user, tx_date, tx_host) VALUES
+('Evaluación con Template', '2023-12-01', '2023-12-15', true, 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+('Evaluación sin Template', '2023-12-05', '2023-12-20', false, 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227');
+
+-- Inserts para Questions
+INSERT INTO question (parameter_id, evaluation_id, question_text, status, tx_user, tx_date, tx_host) VALUES
+(1, 1, '¿Qué tan puntual es el docente en comenzar y terminar las clases?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(2, 1, '¿Cómo calificarías la claridad con la que el docente explica los temas?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(3, 1, '¿Consideras que el docente muestra un amplio conocimiento de la materia?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(4, 1, '¿Cómo describirías la forma en que el docente interactúa con los estudiantes?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(5, 1, '¿El docente utiliza recursos didácticos de manera efectiva para facilitar el aprendizaje?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(6, 1, '¿Cómo es la calidad de la retroalimentación y evaluación que proporciona el docente?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(7, 1, '¿Está el docente disponible y dispuesto a ofrecer apoyo fuera del horario de clases?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(8, 1, '¿El docente fomenta el pensamiento crítico y la reflexión en sus clases?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(9, 1, '¿Cómo maneja el docente los cambios o situaciones imprevistas en el aula?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(10, 1, '¿Has notado la implementación de métodos de enseñanza innovadores por parte del docente?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(11, 1, '¿Cómo calificarías la gestión del aula y el ambiente de aprendizaje creado por el docente?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(12, 1, '¿El docente promueve un ambiente de inclusión y respeto hacia todos los estudiantes?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227');
+
