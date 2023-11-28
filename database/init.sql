@@ -497,3 +497,15 @@ INSERT INTO question (parameter_id, evaluation_id, question_text, status, tx_use
 (11, 1, '¿Cómo calificarías la gestión del aula y el ambiente de aprendizaje creado por el docente?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
 (12, 1, '¿El docente promueve un ambiente de inclusión y respeto hacia todos los estudiantes?', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227');
 
+
+INSERT INTO subject (name, parallel, semester, year, status, tx_user, tx_host) VALUES
+('SIS-212 SISTEMAS DE INFORMACION', 1, '1-2021', 2021, 1, 'guidoalfaro', '192.168.0.227');
+
+INSERT INTO teacher_subject (teacher_user_id, subject_id, status, tx_user, tx_host) VALUES
+(4, 3 , 1, 'guidoalfaro', '192.168.0.227');
+
+INSERT INTO account (user_type_id, first_names, last_names, email, status, tx_user, tx_host) VALUES
+(1, 'GUIDO ABSALON', 'ALFARO ARDAYA', 'guido.alfaro@ucb.edu.bo', 1, 'guidoalfaro', '192.168.0.227');
+
+INSERT INTO subject_enrollment (student_user_id, subject_id, evaluated, status, tx_user, tx_host) VALUES
+(6, 1, false, 1, 'guidoalfaro', '192.168.0.227');

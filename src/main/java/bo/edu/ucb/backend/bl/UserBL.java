@@ -1,6 +1,7 @@
 package bo.edu.ucb.backend.bl;
 
 import bo.edu.ucb.backend.dto.StudentSubjectsDTO;
+import bo.edu.ucb.backend.dto.TeacherSubjectsDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,4 +104,16 @@ public class UserBL {
             throw new RuntimeException("Ocurrio un error mientras se buscaba las materias del alumno");
         }
     }
+
+    public Iterable<TeacherSubjectsDTO> findMateriasDocente(Integer userId) {
+        try {
+            LOG.info("Buscando las materias del docente con id: {}", userId);
+            return userDAO.getTeacherSubjects(userId);
+        } catch (Exception ex) {
+            LOG.error("Ocurrio un error mientras se buscaba las materias del docente: ", ex);
+            throw new RuntimeException("Ocurrio un error mientras se buscaba las materias del docente");
+        }
+    }
+
+
 }
