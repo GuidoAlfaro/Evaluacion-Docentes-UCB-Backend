@@ -1,5 +1,6 @@
 package bo.edu.ucb.backend.bl;
 
+import bo.edu.ucb.backend.dto.ParameterDTO;
 import bo.edu.ucb.backend.dto.StudentSubjectsDTO;
 import bo.edu.ucb.backend.dto.TeacherSubjectsDTO;
 import org.slf4j.Logger;
@@ -94,6 +95,7 @@ public class UserBL {
         }
     }
 
+    //FIXME: ESTO SIENTO QUE NO DEBERIA ESTAR AQUI, TODAS LAS FUNCIONES HACIA ABAJO
     // IMPORTANTES
     public Iterable<StudentSubjectsDTO> findMateriasAlumno(Integer userId) {
         try {
@@ -114,6 +116,4 @@ public class UserBL {
             throw new RuntimeException("Ocurrio un error mientras se buscaba las materias del docente");
         }
     }
-
-
 }
