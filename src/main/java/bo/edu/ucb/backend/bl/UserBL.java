@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import bo.edu.ucb.backend.dao.UserDAO;
 import bo.edu.ucb.backend.entity.User;
+
+import java.util.List;
+
 @Service
 public class UserBL {
     private static final Logger LOG = LoggerFactory.getLogger(UserBL.class);
@@ -114,7 +117,18 @@ public class UserBL {
     public Iterable<TeacherSubjectsDTO> findMateriasDocente(Integer userId) {
         try {
             LOG.info("Buscando las materias del docente con id: {}", userId);
-            return userDAO.getTeacherSubjects(userId);
+            List<TeacherSubjectsDTO> teacherSubjectsDTOList = userDAO.getTeacherSubjects(userId);
+            for (TeacherSubjectsDTO teacherSubjectsDTO : teacherSubjectsDTOList) {
+                String cleanedInput = teacherSubjectsDTO.getEvaluationPercent().replaceAll("[%\\s]", "");
+
+                // Convertir a un número decimal
+                double number = Double.parseDouble(cleanedInput);
+
+                // Formatear a dos decimales
+                String formattedNumber = String.format("%.2f", number);
+                teacherSubjectsDTO.setEvaluationPercent(formattedNumber);
+            }
+            return teacherSubjectsDTOList;
         } catch (Exception ex) {
             LOG.error("Ocurrio un error mientras se buscaba las materias del docente: ", ex);
             throw new RuntimeException("Ocurrio un error mientras se buscaba las materias del docente");

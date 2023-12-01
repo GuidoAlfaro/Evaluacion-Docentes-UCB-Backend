@@ -50,4 +50,8 @@ public class DetailedResultBL {
         }
 
     }
+
+    public List<ChatResponse> findDetailedResultsByTeacherSubjectId(Integer teacherSubjectId) {
+        return detailedResultDAO.findDetailedResultsByTeacherSubjectId(teacherSubjectId);
+    }
 }
