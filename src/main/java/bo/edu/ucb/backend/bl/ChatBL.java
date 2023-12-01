@@ -77,8 +77,9 @@ public class ChatBL {
         return CompletableFuture.completedFuture(answers);
     }
 
+
     //FIXME: LA VERDAD NO SE COMO FUNCIONA ESTO XD
-    private ChatResponse parseChatResponse(String response) {
+    public ChatResponse parseChatResponse(String response) {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
@@ -108,4 +109,25 @@ public class ChatBL {
         }
     }
 
+    public String parseChatResponseForQuery(String response) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(response);
+            JsonNode contentNode = rootNode.path("choices").path(0).path("message").path("content");
+
+            if (!contentNode.isMissingNode()) {
+                String content = contentNode.asText();
+                // Eliminar los caracteres de nueva línea
+                content = content.replaceAll("\\\\n", "");
+                return content;
+            } else {
+                System.err.println("Formato de respuesta no válido: " + response);
+                return "Error al procesar la respuesta";
+            }
+        } catch (IOException e) {
+            System.err.println("Error al procesar la respuesta: " + e.getMessage());
+            return "Error al procesar la respuesta";
+        }
+    }
 }

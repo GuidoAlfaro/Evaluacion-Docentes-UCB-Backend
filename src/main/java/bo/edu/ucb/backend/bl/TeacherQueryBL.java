@@ -3,6 +3,7 @@ package bo.edu.ucb.backend.bl;
 import bo.edu.ucb.backend.dao.TeacherQueryDAO;
 import bo.edu.ucb.backend.dto.ChatRequest;
 import bo.edu.ucb.backend.dto.ChatResponse;
+import bo.edu.ucb.backend.dto.TeacherQueryDTO;
 import bo.edu.ucb.backend.dto.TeacherQueryResponseDTO;
 import bo.edu.ucb.backend.entity.DetailedResult;
 import bo.edu.ucb.backend.entity.TeacherQuery;
@@ -34,8 +35,13 @@ public class TeacherQueryBL {
             promt+= "Responde a esta pregunta realizada por el docente: " + chatRequest.getPrompt();
             LOG.info("Prompt para el chat {}", promt);
             String response = chatBL.generateChat(chatRequest);
+            //LOG.info("Respuesta del chat {}", response);
+
+            //FIXME: DEBERIAS REACOMODAR ESTE CODIGO
+            String parsedResponse = chatBL.parseChatResponseForQuery(response);
+            LOG.info("Respuesta del chat {}", parsedResponse);
             teacherQuery.setQueryText(chatRequest.getPrompt());
-            teacherQuery.setApiResponse(response);
+            teacherQuery.setApiResponse(parsedResponse);
             Date date = new Date();
             teacherQuery.setDate(date);
             teacherQuery.setStatus((short) 1);
@@ -43,10 +49,21 @@ public class TeacherQueryBL {
             teacherQuery.setTxHost("192.168.277.0");
             LOG.info("Guardando la consulta del profesor");
             teacherQueryDAO.save(teacherQuery);
-            return new TeacherQueryResponseDTO(response);
+            return new TeacherQueryResponseDTO(parsedResponse);
         } catch (Exception ex) {
             LOG.error("Ocurrio un error mientras se guardaba la consulta del profesor: ", ex);
             throw new RuntimeException("Ocurrio un error mientras se guardaba la consulta del profesor");
         }
+    }
+
+    public List<TeacherQueryDTO> findAllTeacherQueries(Integer teacherSubjectId) {
+        return teacherQueryDAO.findAllTeacherQuery(teacherSubjectId);
+    }
+
+    public TeacherQuery updateTeacherQuery(Integer teacherQueryId) {
+        TeacherQuery teacherQuery = new TeacherQuery();
+        teacherQuery = teacherQueryDAO.findById(teacherQueryId).get();
+        teacherQuery.setStatus((short) 0);
+        return teacherQueryDAO.save(teacherQuery);
     }
 }

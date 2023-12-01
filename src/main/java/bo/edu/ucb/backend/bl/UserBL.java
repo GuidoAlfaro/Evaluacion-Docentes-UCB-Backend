@@ -1,9 +1,6 @@
 package bo.edu.ucb.backend.bl;
 
-import bo.edu.ucb.backend.dto.ParameterDTO;
-import bo.edu.ucb.backend.dto.StudentSubjectsDTO;
-import bo.edu.ucb.backend.dto.TeacherSubjectsDTO;
-import bo.edu.ucb.backend.dto.UserTypeDTO;
+import bo.edu.ucb.backend.dto.*;
 import bo.edu.ucb.backend.entity.UserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -132,6 +129,16 @@ public class UserBL {
         } catch (Exception ex) {
             LOG.error("Ocurrio un error mientras se buscaba las materias del docente: ", ex);
             throw new RuntimeException("Ocurrio un error mientras se buscaba las materias del docente");
+        }
+    }
+
+    public List<EvaluationDetailDTO> findTeacherSubjectDetails(Integer teacherSubjectId) {
+        try {
+            LOG.info("Buscando los detalles de la materia con id: {}", teacherSubjectId);
+            return userDAO.getEvaluationDetail(teacherSubjectId);
+        } catch (Exception ex) {
+            LOG.error("Ocurrio un error mientras se buscaba los detalles de la materia: ", ex);
+            throw new RuntimeException("Ocurrio un error mientras se buscaba los detalles de la materia");
         }
     }
 

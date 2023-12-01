@@ -33,7 +33,7 @@ public class StudentsAPI {
         }
     }
 
-    @GetMapping(path = "api/v1/evaluations/questions/")
+    @GetMapping(path = "api/v1/evaluations/questions")
     public ResponseDTO findCurrentEvaluationQuestions() {
 
         try {
@@ -45,11 +45,11 @@ public class StudentsAPI {
         }
     }
 
-    @PostMapping(path = "api/v1/teachers/{id}")
-    public ResponseDTO answerEvaluation(@RequestBody List<Answer> answers, @PathVariable Integer id) {
+    @PostMapping(path = "api/v1/teachers")
+    public ResponseDTO answerEvaluation(@RequestBody List<Answer> answers) {
         try {
             LOG.info("Respondiendo la evaluacion");
-            studentBL.answerEvaluation(answers, id);
+            studentBL.answerEvaluation(answers);
             return new ResponseDTO("Se respondio la evaluacion exitosamente");
         } catch (Exception ex) {
             LOG.error("Ocurrio un error mientras se respondia la evaluacion: ", ex);

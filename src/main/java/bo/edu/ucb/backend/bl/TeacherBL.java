@@ -3,6 +3,7 @@ package bo.edu.ucb.backend.bl;
 import bo.edu.ucb.backend.dto.*;
 import bo.edu.ucb.backend.entity.DetailedResult;
 import bo.edu.ucb.backend.entity.TeacherQuery;
+import bo.edu.ucb.backend.entity.TeacherSubject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -41,8 +42,28 @@ public class TeacherBL {
 
     public TeacherQueryResponseDTO generateTeacherQuery(ChatRequest chatRequest, Integer teacherSubjectId) {
         TeacherQuery teacherQuery = new TeacherQuery();
+
+        TeacherSubject teacherSubject = new TeacherSubject();
+        teacherSubject.setTeacherSubjectId(teacherSubjectId);
+        teacherQuery.setTeacherSubject(teacherSubject);
         return teacherQueryBL.createTeacherQuery(teacherQuery, chatRequest);
     }
 
+    public List<TeacherQueryDTO> findAllTeacherQueries(Integer teacherSubjectId) {
+        return teacherQueryBL.findAllTeacherQueries(teacherSubjectId);
+    }
 
+
+    public TeacherQuery updateTeacherQuery(Integer teacherQueryId) {
+        try{
+            return teacherQueryBL.updateTeacherQuery(teacherQueryId);
+        }catch (Exception ex){
+            log.error("Ocurrio un error mientras se actualizaba la consulta del profesor: ", ex);
+            throw new RuntimeException("Ocurrio un error mientras se actualizaba la consulta del profesor");
+        }
+    }
+
+    public List<EvaluationDetailDTO> findTeacherSubjectDetails(Integer teacherSubjectId) {
+        return userBL.findTeacherSubjectDetails(teacherSubjectId);
+    }
 }

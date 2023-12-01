@@ -46,7 +46,7 @@ public class StudentBL {
         }
     }
 
-    public void answerEvaluation(List<Answer> answers, Integer id) {
+    public void answerEvaluation(List<Answer> answers) {
         try {
             answerBL.saveAnswer(answers);
             try {
