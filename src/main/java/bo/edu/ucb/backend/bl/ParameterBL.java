@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ParameterBL {
-
+    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(ParameterBL.class);
     @Autowired
     private ParameterDAO parameterDAO;
 
@@ -24,8 +24,11 @@ public class ParameterBL {
         List<ParameterDTO> result = new ArrayList<>();
 
         for (String paramDescription : parameterDescriptions) {
-            List<Object[]> questionAnswerPairs = parameterDAO.findQuestionsAndAnswersByParameterAndEvaluation(paramDescription, subjectEvaluationId);
 
+            LOG.info("parametro para el dao {}", paramDescription);
+            LOG.info("subjectEvaluationId para el dao {}", subjectEvaluationId);
+            List<Object[]> questionAnswerPairs = parameterDAO.findQuestionsAndAnswersByParameterAndEvaluation(paramDescription, subjectEvaluationId);
+            LOG.info("preguntas y respuesta {}", questionAnswerPairs);
             Map<String, List<AnswerDTO>> questionAnswerMap = new HashMap<>();
 
             for (Object[] pair : questionAnswerPairs) {

@@ -11,6 +11,7 @@ import java.util.List;
 public interface DetailedResultDAO extends JpaRepository<DetailedResult, Integer> {
     @Query("SELECT NEW bo.edu.ucb.backend.dto.ChatResponse(dr.messageForTeacher, dr.parameterCalification) " +
             "FROM DetailedResult dr " +
-            "JOIN TeacherSubject ts ON dr.teacherSubject.teacherSubjectId = ts.teacherSubjectId")
+            "JOIN dr.teacherSubject ts " + // Corrección: especifica la relación en la cláusula JOIN
+            "WHERE ts.teacherSubjectId = :teacherSubjectId")
     List<ChatResponse> findDetailedResultsByTeacherSubjectId(@Param("teacherSubjectId") Integer teacherSubjectId);
 }

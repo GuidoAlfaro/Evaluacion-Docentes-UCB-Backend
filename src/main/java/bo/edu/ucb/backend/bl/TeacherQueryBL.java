@@ -28,6 +28,7 @@ public class TeacherQueryBL {
         try {
             List<ChatResponse> chatResponses = new ArrayList<>();
             chatResponses = detailedResultBL.findDetailedResultsByTeacherSubjectId(teacherQuery.getTeacherSubject().getTeacherSubjectId());
+            LOG.info("teacher subject for query {}", teacherQuery.getTeacherSubject().getTeacherSubjectId());
             String promt = "A partir de estos feedbacks: ";
             for (ChatResponse chatResponse : chatResponses) {
                 promt += chatResponse.getMessageForTeacher() + ". ";

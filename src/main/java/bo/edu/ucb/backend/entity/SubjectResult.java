@@ -15,7 +15,7 @@ public class SubjectResult {
     @JoinColumn(name = "teacher_subject_id")
     private TeacherSubject teacherSubject;
     @Column(name = "overall_calification")
-    private Double overallResult;
+    private Double overAllCalification;
     @Column(name = "status")
     private short status;
     @Column(name = "tx_user")
@@ -32,7 +32,7 @@ public class SubjectResult {
     public SubjectResult(Integer subjectResultId, TeacherSubject teacherSubject, Double overallResult, short status, String txUser, Timestamp txDate, String txHost) {
         this.subjectResultId = subjectResultId;
         this.teacherSubject = teacherSubject;
-        this.overallResult = overallResult;
+        this.overAllCalification = overallResult;
         this.status = status;
         this.txUser = txUser;
         this.txDate = txDate;
@@ -56,13 +56,11 @@ public class SubjectResult {
     }
 
     public Double getOverallResult() {
-        return overallResult;
+        return overAllCalification;
     }
-
     public void setOverallResult(Double overallResult) {
-        this.overallResult = overallResult;
+        this.overAllCalification = overallResult;
     }
-
     public short getStatus() {
         return status;
     }
@@ -100,7 +98,7 @@ public class SubjectResult {
         return "SubjectResult{" +
                 "subjectResultId=" + subjectResultId +
                 ", teacherSubject=" + teacherSubject +
-                ", overallResult=" + overallResult +
+                ", overAllCalification=" + overAllCalification +
                 ", status=" + status +
                 ", txUser='" + txUser + '\'' +
                 ", txDate=" + txDate +

@@ -2,6 +2,7 @@ package bo.edu.ucb.backend.api;
 
 import bo.edu.ucb.backend.bl.ParameterBL;
 import bo.edu.ucb.backend.bl.TeacherBL;
+import bo.edu.ucb.backend.bl.TeacherSubjectBL;
 import bo.edu.ucb.backend.dto.ChatRequest;
 import bo.edu.ucb.backend.dto.ParameterDTO;
 import bo.edu.ucb.backend.dto.ResponseDTO;
@@ -20,6 +21,8 @@ public class TeacherAPI {
     private TeacherBL teacherBL;
     @Autowired
     private ParameterBL parameterBL;
+    @Autowired
+    private TeacherSubjectBL teacherSubjectBL;
 
     //FIXME: LA RUTA NO ES MUY RESTFUL
     @GetMapping("api/v1/subjects/{id}")
@@ -49,7 +52,11 @@ public class TeacherAPI {
     public ResponseDTO generateDetails(@PathVariable Integer id) {
         try {
             LOG.info("Generando detalles de la evaluacion del docente, de la materia con id {}", id);
-            List<ParameterDTO> parameterDTOList = parameterBL.findParametersAndQuestionsWithAnswers(id);
+            Integer subjectEvaluationId = teacherSubjectBL.findSubjectEvaluationByTeacherSubjectId(id);
+
+            LOG.info("El id de la evaluacion de la materia es: {}", subjectEvaluationId);
+
+            List<ParameterDTO> parameterDTOList = parameterBL.findParametersAndQuestionsWithAnswers(subjectEvaluationId);
             LOG.info("Se encontraron {} parametros", parameterDTOList.size());
             teacherBL.generateSubjectResults(parameterDTOList, id);
             return new ResponseDTO("Se generaron los detalles de la evaluacion del docente");
@@ -113,4 +120,14 @@ public class TeacherAPI {
 //            return new ResponseDTO("400", "Ocurrio un error mientras se creaba el resultado de la materia");
 //        }
 //    }
+    @GetMapping("api/v1/ranking")
+    public ResponseDTO findRanking() {
+        try {
+            LOG.info("Obteniendo ranking de docentes");
+            return new ResponseDTO(teacherBL.findRanking());
+        } catch (Exception ex) {
+            LOG.error("Ocurrio un error mientras se obtenia el ranking: ", ex);
+            return new ResponseDTO("400", "Ocurrio un error mientras se obtenia el ranking");
+        }
+    }
 }

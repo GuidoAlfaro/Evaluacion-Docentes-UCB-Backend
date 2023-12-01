@@ -12,4 +12,8 @@ public class TeacherSubjectBL {
     public Integer findTeacherSubjectIdBySubjectEvaluation(Integer subjectEvaluationId) {
         return teacherSubjectDAO.findTeacherSubjectIdBySubjectEvaluation(subjectEvaluationId);
     }
+
+    public Integer findSubjectEvaluationByTeacherSubjectId(Integer teacherSubjectId) {
+        return teacherSubjectDAO.findSubjectEvaluationByTeacherSubjectId(teacherSubjectId);
+    }
 }

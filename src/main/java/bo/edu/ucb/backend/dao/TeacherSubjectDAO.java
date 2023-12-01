@@ -12,4 +12,12 @@ public interface TeacherSubjectDAO extends JpaRepository<TeacherSubject, Integer
     Integer findTeacherSubjectIdBySubjectEvaluation(
             @Param("subjectEvaluationId") Integer subjectEvaluationId
     );
+
+    @Query("SELECT se.subjectEvaluationId FROM TeacherSubject ts, SubjectEvaluation se " +
+            "WHERE se.subject.subjectId = ts.subject.subjectId " +
+            "AND ts.teacherSubjectId = :teacherSubjectId")
+    Integer findSubjectEvaluationByTeacherSubjectId(
+            @Param("teacherSubjectId") Integer teacherSubjectId
+    );
+
 }

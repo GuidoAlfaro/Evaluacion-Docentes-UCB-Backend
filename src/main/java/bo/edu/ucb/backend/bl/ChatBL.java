@@ -49,7 +49,8 @@ public class ChatBL {
         List<ChatResponse> answers = new ArrayList<>();
 
         for (ParameterDTO param : params) {
-            String prompt = "A partir de la pregunta: ";
+            log.info("Parametro en el for: {}", param.toString());
+            String prompt = "Se estricto. A partir de la pregunta: ";
             for (QuestionAnswerDTO questionAnswerDTO : param.getData()) {
                 prompt += questionAnswerDTO.getQuestionText() + "Y las respuestas son: ";
                 for (AnswerDTO answerDTO : questionAnswerDTO.getAnswers()) {
@@ -59,7 +60,7 @@ public class ChatBL {
             String request = "Devuelve un JSON que contenga 2 objetos. El primer objeto 'messageForTeacher' es un mensaje (dirigido al docente) muy breve, pero preciso, que resume las respuestas de los estudiantes (solo es un breve resumen, no contiene consejos ni nada por el estilo). El segundo objeto 'parameterCalification' es una calificación del 1 al 100 (utiliza un decimal si es necesario), calculada en base a las respuestas de los estudiantes. No digas nada mas, solo dame el JSON";
             prompt += request;
 
-            //log.info("Promt para chat gpt3: {}", prompt);
+            log.info("Promt para chat gpt3: {}", prompt);
             //log.info("Envio de prompt a chat gpt3");
 
             String response = generateChat(new ChatRequest(prompt));

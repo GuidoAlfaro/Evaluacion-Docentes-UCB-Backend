@@ -24,11 +24,11 @@ public class DetailedResultBL {
         return detailedResultDAO.save(detailedResult);
     }
 
-    public void createDetailedResults(CompletableFuture<List<ChatResponse>> chatResponses, List<ParameterDTO> parameters, Integer subjectEvaluationId) throws ExecutionException, InterruptedException {
+    public void createDetailedResults(CompletableFuture<List<ChatResponse>> chatResponses, List<ParameterDTO> parameters, Integer teacherSubjectId) throws ExecutionException, InterruptedException {
 
         TeacherSubject teacherSubject = new TeacherSubject();
 
-        teacherSubject.setTeacherSubjectId(subjectEvaluationId);
+        teacherSubject.setTeacherSubjectId(teacherSubjectId);
         LOG.info("Cantidad de respuestas: {}", chatResponses.get().size());
         for (int i = 0; i < chatResponses.get().size(); i++) {
             DetailedResult detailedResultToSave = new DetailedResult();
@@ -53,7 +53,10 @@ public class DetailedResultBL {
     }
 
     public List<ChatResponse> findDetailedResultsByTeacherSubjectId(Integer teacherSubjectId) {
-        return detailedResultDAO.findDetailedResultsByTeacherSubjectId(teacherSubjectId);
+        List<ChatResponse> chatResponses = new ArrayList<>();
+        chatResponses = detailedResultDAO.findDetailedResultsByTeacherSubjectId(teacherSubjectId);
+        LOG.info("Datos de evaluaciones {}", chatResponses);
+        return chatResponses;
     }
 
     public AverageCalificationDTO getAverageCalification(Integer teacherSubjectId) {

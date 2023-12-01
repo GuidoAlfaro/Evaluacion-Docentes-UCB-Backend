@@ -38,8 +38,7 @@ public class TeacherBL {
 
     public void generateSubjectResults(List<ParameterDTO> parameterDTOList, Integer teacherSubjectId) throws ExecutionException, InterruptedException {
         CompletableFuture<List<ChatResponse>> chatResponses = chatBL.fetchAnswers(parameterDTOList);
-        //Integer teacherSubjectId = teacherSubjectBL.findTeacherSubjectIdBySubjectEvaluation(subjectEvaluationId);
-        log.info("El id del teacherSubject es: {}", teacherSubjectId);
+        //log.info("El id del teacherSubject es: {}", teacherSubjectId);
 
         // para el detalle se guardara en detailedResult
         detailedResultBL.createDetailedResults(chatResponses, parameterDTOList, teacherSubjectId);
@@ -76,7 +75,13 @@ public class TeacherBL {
     }
 
     // ranking
-    public SubjectResult saveSubjectResults(Integer teacherSubjectId) {
-        return subjectResultBL.createSubjectResult(teacherSubjectId);
+    public void saveSubjectResults(Integer teacherSubjectId) {
+        subjectResultBL.createSubjectResult(teacherSubjectId);
     }
+
+    public List<RankingDTO> findRanking() {
+        return subjectResultBL.fetchRanking();
+    }
+
+
 }
