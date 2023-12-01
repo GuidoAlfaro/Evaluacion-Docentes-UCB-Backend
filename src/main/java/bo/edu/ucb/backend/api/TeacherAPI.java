@@ -31,6 +31,7 @@ public class TeacherAPI {
         }
     }
 
+    //FIXME: POST?
     @GetMapping("api/v1/subjects/{id}/generate")
     public ResponseDTO generateDetails(@PathVariable Integer id) {
         try {

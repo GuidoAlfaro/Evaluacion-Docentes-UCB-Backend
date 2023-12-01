@@ -32,9 +32,9 @@ public class TeacherBL {
         return userBL.findMateriasDocente(teacherUserId);
     }
 
-    public void generateSubjectResults(List<ParameterDTO> parameterDTOList, Integer subjectEvaluationId) throws ExecutionException, InterruptedException {
+    public void generateSubjectResults(List<ParameterDTO> parameterDTOList, Integer teacherSubjectId) throws ExecutionException, InterruptedException {
         CompletableFuture<List<ChatResponse>> chatResponses = chatBL.fetchAnswers(parameterDTOList);
-        Integer teacherSubjectId = teacherSubjectBL.findTeacherSubjectIdBySubjectEvaluation(subjectEvaluationId);
+        //Integer teacherSubjectId = teacherSubjectBL.findTeacherSubjectIdBySubjectEvaluation(subjectEvaluationId);
         log.info("El id del teacherSubject es: {}", teacherSubjectId);
         detailedResultBL.createDetailedResults(chatResponses, parameterDTOList, teacherSubjectId);
     }
