@@ -32,7 +32,7 @@ public class UserAPI {
             return new ResponseDTO(userBL.login(loginDTO.getEmail()));
         } catch (Exception ex) {
             LOG.error("Ocurrio un error mientras se buscaba al usuario: ", ex);
-            return new ResponseDTO("400", "Ocurrio un error mientras se buscaba al usuario");
+            return new ResponseDTO("400", ex.getMessage());
         }
     }
 }

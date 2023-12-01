@@ -43,6 +43,7 @@ public class ChatBL {
         return restTemplate.postForEntity(apiUrl, requestEntity, String.class).getBody();
     }
 
+    //FIXME: REORDENA UN POCO EL CODIGO
     @Async
     public CompletableFuture<List<ChatResponse>> fetchAnswers(List<ParameterDTO> params){
         List<ChatResponse> answers = new ArrayList<>();

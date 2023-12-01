@@ -85,11 +85,11 @@ public class UserTypeBL {
                 return userType;
             } else {
                 LOG.error("No existe el tipo de usuario con email: {}", email);
-                return null;
+                throw new RuntimeException("Usuario inexistente");
             }
         } catch (Exception ex) {
             LOG.error("Ocurrio un error mientras se buscaba el tipo de usuario: ", ex);
-            throw new RuntimeException("Ocurrio un error mientras se buscaba el tipo de usuario");
+            throw new RuntimeException("Ocurrio un error: ", ex);
         }
     }
 }

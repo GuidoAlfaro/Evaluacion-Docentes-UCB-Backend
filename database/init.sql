@@ -457,6 +457,10 @@ INSERT INTO subject_enrollment (student_user_id, subject_id, evaluated, status, 
 (2, 1, false, 1, 'guidoalfaro', '192.168.0.227'),
 (3, 2, false, 1, 'guidoalfaro', '192.168.0.227');
 
+INSERT INTO subject_enrollment (student_user_id, subject_id, evaluated, status, tx_user, tx_host) VALUES
+(6, 3, false, 1, 'guidoalfaro', '192.168.0.227'),
+
+
 -- Inserts para Teacher Subject (Asignación de Docentes a Materias)
 INSERT INTO teacher_subject (teacher_user_id, subject_id, status, tx_user, tx_host) VALUES
 (4, 1, 1, 'guidoalfaro', '192.168.0.227'),
@@ -515,6 +519,12 @@ INSERT INTO parameter (description, status, tx_user, tx_date, tx_host) VALUES
 
 insert into subject_evaluation (subject_id, evaluation_id, status, tx_user, tx_host) values
 (1, 1, 1, 'guidoalfaro', '192.168.0.227');
+
+insert into subject_evaluation (subject_id, evaluation_id, status, tx_user, tx_host) values
+(2, 1, 1, 'guidoalfaro', '192.168.0.227');
+
+insert into subject_evaluation (subject_id, evaluation_id, status, tx_user, tx_host) values
+(3, 1, 1, 'guidoalfaro', '192.168.0.227');
 
 
 INSERT INTO answer (subject_evaluation_id, question_id, student_user_id, answer_text, status, tx_user, tx_host) VALUES

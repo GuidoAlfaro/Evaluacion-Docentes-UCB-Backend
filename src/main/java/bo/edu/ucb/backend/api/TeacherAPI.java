@@ -2,6 +2,7 @@ package bo.edu.ucb.backend.api;
 
 import bo.edu.ucb.backend.bl.ParameterBL;
 import bo.edu.ucb.backend.bl.TeacherBL;
+import bo.edu.ucb.backend.dto.ChatRequest;
 import bo.edu.ucb.backend.dto.ParameterDTO;
 import bo.edu.ucb.backend.dto.ResponseDTO;
 import org.slf4j.Logger;
@@ -41,6 +42,17 @@ public class TeacherAPI {
         } catch (Exception ex) {
             LOG.error("Ocurrio un error mientras se generaba el detalle: ", ex);
             return new ResponseDTO("400", "Ocurrio un error mientras se generaba el detalle");
+        }
+    }
+
+    @PostMapping("api/v1/subjects/{id}/queries")
+    public ResponseDTO teacherPrompt(@RequestBody ChatRequest chatRequest, @PathVariable Integer id) {
+        try {
+            LOG.info("Buscando las consultas de los docentes");
+            return new ResponseDTO(teacherBL.generateTeacherQuery(chatRequest, id));
+        } catch (Exception ex) {
+            LOG.error("Ocurrio un error mientras se buscaba las consultas de los docentes: ", ex);
+            return new ResponseDTO("400", "Ocurrio un error mientras se realizaba las consultas de los docentes");
         }
     }
 }

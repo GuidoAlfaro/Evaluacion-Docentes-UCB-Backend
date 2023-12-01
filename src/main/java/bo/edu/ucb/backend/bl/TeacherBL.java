@@ -2,6 +2,7 @@ package bo.edu.ucb.backend.bl;
 
 import bo.edu.ucb.backend.dto.*;
 import bo.edu.ucb.backend.entity.DetailedResult;
+import bo.edu.ucb.backend.entity.TeacherQuery;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -25,6 +26,8 @@ public class TeacherBL {
     private TeacherSubjectBL teacherSubjectBL;
     @Autowired
     private DetailedResultBL detailedResultBL;
+    @Autowired
+    private TeacherQueryBL teacherQueryBL;
     public Iterable<TeacherSubjectsDTO> findTeacherSubjects(Integer teacherUserId) {
         return userBL.findMateriasDocente(teacherUserId);
     }
@@ -34,6 +37,11 @@ public class TeacherBL {
         Integer teacherSubjectId = teacherSubjectBL.findTeacherSubjectIdBySubjectEvaluation(subjectEvaluationId);
         log.info("El id del teacherSubject es: {}", teacherSubjectId);
         detailedResultBL.createDetailedResults(chatResponses, parameterDTOList, teacherSubjectId);
+    }
+
+    public TeacherQueryResponseDTO generateTeacherQuery(ChatRequest chatRequest, Integer teacherSubjectId) {
+        TeacherQuery teacherQuery = new TeacherQuery();
+        return teacherQueryBL.createTeacherQuery(teacherQuery, chatRequest);
     }
 
 
