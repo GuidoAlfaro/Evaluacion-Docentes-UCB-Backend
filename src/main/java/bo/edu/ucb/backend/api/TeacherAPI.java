@@ -102,4 +102,15 @@ public class TeacherAPI {
             return new ResponseDTO("400", "Ocurrio un error mientras se actualizaba la consulta del docente");
         }
     }
+
+//    @PostMapping("api/v1/ranking")
+//    public ResponseDTO createSubjectResult(@RequestBody Integer teacherSubjectId) {
+//        try {
+//            LOG.info("Creando el resultado de la materia");
+//            return new ResponseDTO(teacherBL.saveSubjectResults(teacherSubjectId));
+//        } catch (Exception ex) {
+//            LOG.error("Ocurrio un error mientras se creaba el resultado de la materia: ", ex);
+//            return new ResponseDTO("400", "Ocurrio un error mientras se creaba el resultado de la materia");
+//        }
+//    }
 }

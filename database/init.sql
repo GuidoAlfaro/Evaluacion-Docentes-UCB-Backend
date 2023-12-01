@@ -511,6 +511,10 @@ INSERT INTO teacher_subject (teacher_user_id, subject_id, status, tx_user, tx_ho
 INSERT INTO account (user_type_id, first_names, last_names, email, status, tx_user, tx_host) VALUES
 (1, 'GUIDO ABSALON', 'ALFARO ARDAYA', 'guido.alfaro@ucb.edu.bo', 1, 'guidoalfaro', '192.168.0.227');
 
+INSERT INTO account (user_type_id, first_names, last_names, email, status, tx_user, tx_host) VALUES
+(1, 'EJEMPLO ESTUDIANTE', 'ALFARO ARDAYA', 'estudiante.alfaro@ucb.edu.bo', 1, 'guidoalfaro', '192.168.0.227');
+
+
 INSERT INTO subject_enrollment (student_user_id, subject_id, evaluated, status, tx_user, tx_host) VALUES
 (6, 1, false, 1, 'guidoalfaro', '192.168.0.227');
 
@@ -574,3 +578,154 @@ INSERT INTO answer (subject_evaluation_id, question_id, student_user_id, answer_
 (1, 10, 6, 'Sí, ha implementado métodos innovadores', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
 (1, 11, 6, 'Buena gestión del aula y ambiente de aprendizaje', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
 (1, 12, 6, 'Sí, promueve un ambiente de inclusión y respeto', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227');
+
+-- TRIGERS
+CREATE OR REPLACE FUNCTION h_answer_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'DELETE' THEN
+        INSERT INTO h_answer (h_date, answer_id, answer_text, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, OLD.answer_id, OLD.answer_text, OLD.status, OLD.tx_user, OLD.tx_date, OLD.tx_host);
+    ELSIF TG_OP = 'UPDATE' THEN
+        INSERT INTO h_answer (h_date, answer_id, answer_text, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, NEW.answer_id, NEW.answer_text, NEW.status, NEW.tx_user, NEW.tx_date, NEW.tx_host);
+    ELSIF TG_OP = 'INSERT' THEN
+        INSERT INTO h_answer (h_date, answer_id, answer_text, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, NEW.answer_id, NEW.answer_text, NEW.status, NEW.tx_user, NEW.tx_date, NEW.tx_host);
+END IF;
+RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER h_answer_trigger
+    AFTER INSERT OR UPDATE OR DELETE ON answer
+    FOR EACH ROW
+    EXECUTE FUNCTION h_answer_trigger();
+
+
+
+CREATE OR REPLACE FUNCTION h_evaluation_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'DELETE' THEN
+        INSERT INTO h_evaluation (h_date, evaluation_id, description, start_date, end_date, template, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, OLD.evaluation_id, OLD.description, OLD.start_date, OLD.end_date, OLD.template, OLD.status, OLD.tx_user, OLD.tx_date, OLD.tx_host);
+    ELSIF TG_OP = 'UPDATE' THEN
+        INSERT INTO h_evaluation (h_date, evaluation_id, description, start_date, end_date, template, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, NEW.evaluation_id, NEW.description, NEW.start_date, NEW.end_date, NEW.template, NEW.status, NEW.tx_user, NEW.tx_date, NEW.tx_host);
+    ELSIF TG_OP = 'INSERT' THEN
+        INSERT INTO h_evaluation (h_date, evaluation_id, description, start_date, end_date, template, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, NEW.evaluation_id, NEW.description, NEW.start_date, NEW.end_date, NEW.template, NEW.status, NEW.tx_user, NEW.tx_date, NEW.tx_host);
+END IF;
+RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER h_evaluation_trigger
+    AFTER INSERT OR UPDATE OR DELETE ON evaluation
+    FOR EACH ROW
+    EXECUTE FUNCTION h_evaluation_trigger();
+
+
+
+CREATE OR REPLACE FUNCTION h_subject_evaluation_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'DELETE' THEN
+        INSERT INTO h_subject_evaluation (h_date, subject_evaluation_id, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, OLD.subject_evaluation_id, OLD.status, OLD.tx_user, OLD.tx_date, OLD.tx_host);
+    ELSIF TG_OP = 'UPDATE' THEN
+        INSERT INTO h_subject_evaluation (h_date, subject_evaluation_id, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, NEW.subject_evaluation_id, NEW.status, NEW.tx_user, NEW.tx_date, NEW.tx_host);
+    ELSIF TG_OP = 'INSERT' THEN
+        INSERT INTO h_subject_evaluation (h_date, subject_evaluation_id, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, NEW.subject_evaluation_id, NEW.status, NEW.tx_user, NEW.tx_date, NEW.tx_host);
+END IF;
+RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER h_subject_evaluation_trigger
+    AFTER INSERT OR UPDATE OR DELETE ON subject_evaluation
+    FOR EACH ROW
+    EXECUTE FUNCTION h_subject_evaluation_trigger();
+
+
+
+CREATE OR REPLACE FUNCTION h_subject_result_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'DELETE' THEN
+        INSERT INTO h_subject_result (h_date, subject_result_id, overall_calification, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, OLD.subject_result_id, OLD.overall_calification, OLD.status, OLD.tx_user, OLD.tx_date, OLD.tx_host);
+    ELSIF TG_OP = 'UPDATE' THEN
+        INSERT INTO h_subject_result (h_date, subject_result_id, overall_calification, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, NEW.subject_result_id, NEW.overall_calification, NEW.status, NEW.tx_user, NEW.tx_date, NEW.tx_host);
+    ELSIF TG_OP = 'INSERT' THEN
+        INSERT INTO h_subject_result (h_date, subject_result_id, overall_calification, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, NEW.subject_result_id, NEW.overall_calification, NEW.status, NEW.tx_user, NEW.tx_date, NEW.tx_host);
+END IF;
+RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER h_subject_result_trigger
+    AFTER INSERT OR UPDATE OR DELETE ON subject_result
+    FOR EACH ROW
+    EXECUTE FUNCTION h_subject_result_trigger();
+
+
+
+
+CREATE OR REPLACE FUNCTION h_teacher_subject_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'DELETE' THEN
+        INSERT INTO h_teacher_subject (h_date, teacher_subject_id, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, OLD.teacher_subject_id, OLD.status, OLD.tx_user, OLD.tx_date, OLD.tx_host);
+    ELSIF TG_OP = 'UPDATE' THEN
+        INSERT INTO h_teacher_subject (h_date, teacher_subject_id, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, NEW.teacher_subject_id, NEW.status, NEW.tx_user, NEW.tx_date, NEW.tx_host);
+    ELSIF TG_OP = 'INSERT' THEN
+        INSERT INTO h_teacher_subject (h_date, teacher_subject_id, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, NEW.teacher_subject_id, NEW.status, NEW.tx_user, NEW.tx_date, NEW.tx_host);
+END IF;
+RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER h_teacher_subject_trigger
+    AFTER INSERT OR UPDATE OR DELETE ON teacher_subject
+    FOR EACH ROW
+    EXECUTE FUNCTION h_teacher_subject_trigger();
+
+
+
+
+
+CREATE OR REPLACE FUNCTION h_user_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'DELETE' THEN
+        INSERT INTO h_user (h_date, user_id, first_names, last_names, email, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, OLD.user_id, OLD.first_names, OLD.last_names, OLD.email, OLD.status, OLD.tx_user, OLD.tx_date, OLD.tx_host);
+    ELSIF TG_OP = 'UPDATE' THEN
+        INSERT INTO h_user (h_date, user_id, first_names, last_names, email, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, NEW.user_id, NEW.first_names, NEW.last_names, NEW.email, NEW.status, NEW.tx_user, NEW.tx_date, NEW.tx_host);
+    ELSIF TG_OP = 'INSERT' THEN
+        INSERT INTO h_user (h_date, user_id, first_names, last_names, email, status, tx_user, tx_date, tx_host)
+        VALUES (CURRENT_TIMESTAMP, NEW.user_id, NEW.first_names, NEW.last_names, NEW.email, NEW.status, NEW.tx_user, NEW.tx_date, NEW.tx_host);
+END IF;
+RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER h_user_trigger
+    AFTER INSERT OR UPDATE OR DELETE ON "user"
+    FOR EACH ROW
+    EXECUTE FUNCTION h_user_trigger();
+
+
+
+
+

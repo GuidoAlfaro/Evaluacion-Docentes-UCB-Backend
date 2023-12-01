@@ -1,6 +1,7 @@
 package bo.edu.ucb.backend.bl;
 
 import bo.edu.ucb.backend.dao.DetailedResultDAO;
+import bo.edu.ucb.backend.dto.AverageCalificationDTO;
 import bo.edu.ucb.backend.dto.ChatResponse;
 import bo.edu.ucb.backend.dto.ParameterDTO;
 import bo.edu.ucb.backend.entity.DetailedResult;
@@ -54,4 +55,18 @@ public class DetailedResultBL {
     public List<ChatResponse> findDetailedResultsByTeacherSubjectId(Integer teacherSubjectId) {
         return detailedResultDAO.findDetailedResultsByTeacherSubjectId(teacherSubjectId);
     }
+
+    public AverageCalificationDTO getAverageCalification(Integer teacherSubjectId) {
+        List<ChatResponse> chatResponse = new ArrayList<>();
+        chatResponse = findDetailedResultsByTeacherSubjectId(teacherSubjectId);
+        AverageCalificationDTO averageCalificationDTO = new AverageCalificationDTO();
+        averageCalificationDTO.setAverageCalification(0.0);
+        for(ChatResponse chatResponse1 : chatResponse){
+            averageCalificationDTO.setAverageCalification(averageCalificationDTO.getAverageCalification() + chatResponse1.getParameterCalification());
+        }
+        averageCalificationDTO.setAverageCalification(averageCalificationDTO.getAverageCalification()/chatResponse.size());
+        return averageCalificationDTO;
+    }
+
+
 }

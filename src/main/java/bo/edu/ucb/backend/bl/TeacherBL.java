@@ -2,6 +2,7 @@ package bo.edu.ucb.backend.bl;
 
 import bo.edu.ucb.backend.dto.*;
 import bo.edu.ucb.backend.entity.DetailedResult;
+import bo.edu.ucb.backend.entity.SubjectResult;
 import bo.edu.ucb.backend.entity.TeacherQuery;
 import bo.edu.ucb.backend.entity.TeacherSubject;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -29,6 +30,8 @@ public class TeacherBL {
     private DetailedResultBL detailedResultBL;
     @Autowired
     private TeacherQueryBL teacherQueryBL;
+    @Autowired
+    private SubjectResultBL subjectResultBL;
     public Iterable<TeacherSubjectsDTO> findTeacherSubjects(Integer teacherUserId) {
         return userBL.findMateriasDocente(teacherUserId);
     }
@@ -37,7 +40,12 @@ public class TeacherBL {
         CompletableFuture<List<ChatResponse>> chatResponses = chatBL.fetchAnswers(parameterDTOList);
         //Integer teacherSubjectId = teacherSubjectBL.findTeacherSubjectIdBySubjectEvaluation(subjectEvaluationId);
         log.info("El id del teacherSubject es: {}", teacherSubjectId);
+
+        // para el detalle se guardara en detailedResult
         detailedResultBL.createDetailedResults(chatResponses, parameterDTOList, teacherSubjectId);
+
+        //para el ranking se guardara en subjectResult
+        saveSubjectResults(teacherSubjectId);
     }
 
     public TeacherQueryResponseDTO generateTeacherQuery(ChatRequest chatRequest, Integer teacherSubjectId) {
@@ -65,5 +73,10 @@ public class TeacherBL {
 
     public List<EvaluationDetailDTO> findTeacherSubjectDetails(Integer teacherSubjectId) {
         return userBL.findTeacherSubjectDetails(teacherSubjectId);
+    }
+
+    // ranking
+    public SubjectResult saveSubjectResults(Integer teacherSubjectId) {
+        return subjectResultBL.createSubjectResult(teacherSubjectId);
     }
 }

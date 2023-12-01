@@ -90,12 +90,12 @@ public class ChatBL {
                 String content = contentNode.asText();
 
                 // Check if the content is enclosed in triple backticks
-                if (content.startsWith("```") && content.endsWith("```")) {
-                    // Remove triple backticks and unescape escaped double quotes
-                    content = content.substring(3, content.length() - 3).replace("\\\"", "\"");
-                } else if (content.startsWith("```json") && content.endsWith("```")) {
+                if (content.startsWith("```json") && content.endsWith("```")) {
                     // Remove triple backticks and the "json" keyword
                     content = content.substring(7, content.length() - 3);
+                } else if (content.startsWith("```") && content.endsWith("```")) {
+                    // Remove triple backticks and unescape escaped double quotes
+                    content = content.substring(3, content.length() - 3).replace("\\\"", "\"");
                 }
 
                 return objectMapper.readValue(content, ChatResponse.class);
