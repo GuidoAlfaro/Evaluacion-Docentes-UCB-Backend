@@ -35,24 +35,12 @@ public class TeacherAPI {
         try {
             LOG.info("Generando detalles de la evaluacion del docente, de la materia con id {}", id);
             List<ParameterDTO> parameterDTOList = parameterBL.findParametersAndQuestionsWithAnswers(id);
-            return new ResponseDTO(teacherBL.fetchAnswers(parameterDTOList));
+            LOG.info("Se encontraron {} parametros", parameterDTOList.size());
+            teacherBL.generateSubjectResults(parameterDTOList, id);
+            return new ResponseDTO("Se generaron los detalles de la evaluacion del docente");
         } catch (Exception ex) {
             LOG.error("Ocurrio un error mientras se generaba el detalle: ", ex);
             return new ResponseDTO("400", "Ocurrio un error mientras se generaba el detalle");
         }
     }
-
-//    @GetMapping("api/v1/parameters")
-//    public ResponseDTO findParametersUsedInCurrentEvaluation() {
-//        try {
-//            LOG.info("Buscando los parametros usados en la evaluacion actual");
-////            return new ResponseDTO(parameterBL.findParametersAndQuestionsWithAnswers());
-//            ResponseDTO responseDTO = new ResponseDTO(parameterBL.findParametersAndQuestionsWithAnswers(3));
-//            teacherBL.fetchAnswers(responseDTO.getData());
-//            return responseDTO;
-//        } catch (Exception ex) {
-//            LOG.error("Ocurrio un error mientras se buscaba los parametros usados en la evaluacion actual: ", ex);
-//            return new ResponseDTO("400", "Ocurrio un error mientras se buscaba los parametros usados en la evaluacion actual");
-//        }
-//    }
 }

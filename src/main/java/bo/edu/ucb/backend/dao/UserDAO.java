@@ -31,13 +31,13 @@ public interface UserDAO extends JpaRepository<User, Integer>{
 //            "FROM SubjectEnrollment se " +
 //            "WHERE se.subject.subjectId = :subjectId")
 //    Double calculateEvaluationPercentage(@Param("subjectId") Integer subjectId);
-@Query("SELECT new bo.edu.ucb.backend.dto.TeacherSubjectsDTO(ts.teacherSubjectId, ts.subject.subjectId, s.name, ts.subject.parallel, " +
-        "CONCAT(COALESCE(CONCAT(ROUND(SUM(CASE WHEN se.evaluated = true THEN 1 ELSE 0 END) * 100.0 / NULLIF(COUNT(se), 0), 2), '%'), '0'), '%')) " +
-        "FROM TeacherSubject ts " +
-        "JOIN Subject s ON ts.subject.subjectId = s.subjectId " +
-        "LEFT JOIN SubjectEnrollment se ON ts.subject.subjectId = se.subject.subjectId AND se.subject.subjectId = ts.subject.subjectId " +
-        "WHERE ts.teacher.userId = :teacherId AND ts.status = 1 " +
-        "GROUP BY ts.teacherSubjectId, ts.subject.subjectId, s.name, ts.subject.parallel")
-List<TeacherSubjectsDTO> getTeacherSubjects(@Param("teacherId") Integer teacherId);
+    @Query("SELECT new bo.edu.ucb.backend.dto.TeacherSubjectsDTO(ts.teacherSubjectId, ts.subject.subjectId, s.name, ts.subject.parallel, " +
+            "CONCAT(COALESCE(CONCAT(ROUND(SUM(CASE WHEN se.evaluated = true THEN 1 ELSE 0 END) * 100.0 / NULLIF(COUNT(se), 0), 2), '%'), '0'), '%')) " +
+            "FROM TeacherSubject ts " +
+            "JOIN Subject s ON ts.subject.subjectId = s.subjectId " +
+            "LEFT JOIN SubjectEnrollment se ON ts.subject.subjectId = se.subject.subjectId AND se.subject.subjectId = ts.subject.subjectId " +
+            "WHERE ts.teacher.userId = :teacherId AND ts.status = 1 " +
+            "GROUP BY ts.teacherSubjectId, ts.subject.subjectId, s.name, ts.subject.parallel")
+    List<TeacherSubjectsDTO> getTeacherSubjects(@Param("teacherId") Integer teacherId);
 
 }

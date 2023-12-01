@@ -3,6 +3,8 @@ package bo.edu.ucb.backend.bl;
 import bo.edu.ucb.backend.dto.ParameterDTO;
 import bo.edu.ucb.backend.dto.StudentSubjectsDTO;
 import bo.edu.ucb.backend.dto.TeacherSubjectsDTO;
+import bo.edu.ucb.backend.dto.UserTypeDTO;
+import bo.edu.ucb.backend.entity.UserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ public class UserBL {
     private static final Logger LOG = LoggerFactory.getLogger(UserBL.class);
     @Autowired
     private UserDAO userDAO;
+    @Autowired
+    private UserTypeBL userTypeBL;
 
     public User findUserById(Integer userId) {
         try {
@@ -114,6 +118,16 @@ public class UserBL {
         } catch (Exception ex) {
             LOG.error("Ocurrio un error mientras se buscaba las materias del docente: ", ex);
             throw new RuntimeException("Ocurrio un error mientras se buscaba las materias del docente");
+        }
+    }
+
+    public UserTypeDTO login(String email) {
+        try {
+            LOG.info("Determinando el tipo de usuario con correo: {}", email);
+            return userTypeBL.userTypeByEmail(email);
+        } catch (Exception e) {
+           LOG.error("Ocurrio un error", e);
+           throw new RuntimeException("No existe el usuario con correo: " + email);
         }
     }
 }
