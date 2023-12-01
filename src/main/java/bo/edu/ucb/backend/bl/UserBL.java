@@ -126,7 +126,7 @@ public class UserBL {
 
                 // Formatear a dos decimales
                 String formattedNumber = String.format("%.2f", number);
-                teacherSubjectsDTO.setEvaluationPercent(formattedNumber);
+                teacherSubjectsDTO.setEvaluationPercent(formattedNumber+ "%" );
             }
             return teacherSubjectsDTOList;
         } catch (Exception ex) {
