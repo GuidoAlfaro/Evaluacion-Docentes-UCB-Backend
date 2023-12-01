@@ -1,7 +1,7 @@
 package bo.edu.ucb.backend.bl;
 
-import bo.edu.ucb.backend.dto.StudentSubjectsDTO;
-import bo.edu.ucb.backend.dto.TeacherSubjectsDTO;
+import bo.edu.ucb.backend.dto.*;
+import bo.edu.ucb.backend.entity.UserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +9,16 @@ import org.springframework.stereotype.Service;
 
 import bo.edu.ucb.backend.dao.UserDAO;
 import bo.edu.ucb.backend.entity.User;
+
+import java.util.List;
+
 @Service
 public class UserBL {
     private static final Logger LOG = LoggerFactory.getLogger(UserBL.class);
     @Autowired
     private UserDAO userDAO;
+    @Autowired
+    private UserTypeBL userTypeBL;
 
     public User findUserById(Integer userId) {
         try {
@@ -94,6 +99,7 @@ public class UserBL {
         }
     }
 
+    //FIXME: ESTO SIENTO QUE NO DEBERIA ESTAR AQUI, TODAS LAS FUNCIONES HACIA ABAJO
     // IMPORTANTES
     public Iterable<StudentSubjectsDTO> findMateriasAlumno(Integer userId) {
         try {
@@ -108,12 +114,41 @@ public class UserBL {
     public Iterable<TeacherSubjectsDTO> findMateriasDocente(Integer userId) {
         try {
             LOG.info("Buscando las materias del docente con id: {}", userId);
-            return userDAO.getTeacherSubjects(userId);
+            List<TeacherSubjectsDTO> teacherSubjectsDTOList = userDAO.getTeacherSubjects(userId);
+            for (TeacherSubjectsDTO teacherSubjectsDTO : teacherSubjectsDTOList) {
+                String cleanedInput = teacherSubjectsDTO.getEvaluationPercent().replaceAll("[%\\s]", "");
+
+                // Convertir a un número decimal
+                double number = Double.parseDouble(cleanedInput);
+
+                // Formatear a dos decimales
+                String formattedNumber = String.format("%.2f", number);
+                teacherSubjectsDTO.setEvaluationPercent(formattedNumber+ "%" );
+            }
+            return teacherSubjectsDTOList;
         } catch (Exception ex) {
             LOG.error("Ocurrio un error mientras se buscaba las materias del docente: ", ex);
             throw new RuntimeException("Ocurrio un error mientras se buscaba las materias del docente");
         }
     }
 
+    public List<EvaluationDetailDTO> findTeacherSubjectDetails(Integer teacherSubjectId) {
+        try {
+            LOG.info("Buscando los detalles de la materia con id: {}", teacherSubjectId);
+            return userDAO.getEvaluationDetail(teacherSubjectId);
+        } catch (Exception ex) {
+            LOG.error("Ocurrio un error mientras se buscaba los detalles de la materia: ", ex);
+            throw new RuntimeException("Ocurrio un error mientras se buscaba los detalles de la materia");
+        }
+    }
 
+    public UserTypeDTO login(String email) {
+        try {
+            LOG.info("Determinando el tipo de usuario con correo: {}", email);
+            return userTypeBL.userTypeByEmail(email);
+        } catch (Exception e) {
+           LOG.error("Ocurrio un error", e);
+           throw new RuntimeException("No existe el usuario con correo: " + email);
+        }
+    }
 }

@@ -3,7 +3,7 @@ package bo.edu.ucb.backend.dto;
 public class StudentSubjectsDTO {
 
     private Integer enrollmentId;
-    private Integer teacherUserId;
+    private Integer subjectEvaluationId;
     private String teacherFirstName;
     private String teacherLastName;
     private Integer subjectId;
@@ -16,9 +16,9 @@ public class StudentSubjectsDTO {
     public StudentSubjectsDTO() {
     }
 
-    public StudentSubjectsDTO(Integer enrollmentId, Integer teacherUserId, String teacherFirstName, String teacherLastName, Integer subjectId, String subjectName, String semester, String year, String parallel, boolean evaluated) {
+    public StudentSubjectsDTO(Integer enrollmentId, Integer subjectEvaluationId, String teacherFirstName, String teacherLastName, Integer subjectId, String subjectName, String semester, String year, String parallel, boolean evaluated) {
         this.enrollmentId = enrollmentId;
-        this.teacherUserId = teacherUserId;
+        this.subjectEvaluationId = subjectEvaluationId;
         this.teacherFirstName = teacherFirstName;
         this.teacherLastName = teacherLastName;
         this.subjectId = subjectId;
@@ -37,14 +37,13 @@ public class StudentSubjectsDTO {
         this.enrollmentId = enrollmentId;
     }
 
-    public Integer getTeacherUserId() {
-        return teacherUserId;
+    public Integer getSubjectEvaluationId() {
+        return subjectEvaluationId;
     }
 
-    public void setTeacherUserId(Integer teacherUserId) {
-        this.teacherUserId = teacherUserId;
+    public void setSubjectEvaluationId(Integer subjectEvaluationId) {
+        this.subjectEvaluationId = subjectEvaluationId;
     }
-
     public String getTeacherFirstName() {
         return teacherFirstName;
     }
@@ -112,8 +111,8 @@ public class StudentSubjectsDTO {
     @Override
     public String toString() {
         return "StudentSubjectsDTO{" +
-                "enrollmentId=" + enrollmentId +
-                ", teacherUserId=" + teacherUserId +
+                "enrollmentId=" + enrollmentId + '\'' +
+                ", subjectEvaluationId='" + subjectEvaluationId + '\'' +
                 ", teacherFirstName='" + teacherFirstName + '\'' +
                 ", teacherLastName='" + teacherLastName + '\'' +
                 ", subjectId=" + subjectId +

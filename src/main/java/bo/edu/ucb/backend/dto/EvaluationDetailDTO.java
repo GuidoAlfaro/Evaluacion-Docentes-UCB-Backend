@@ -1,25 +1,25 @@
 package bo.edu.ucb.backend.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class ChatResponse {
-    @JsonProperty("messageForTeacher")
+public class EvaluationDetailDTO {
+    private String parameter;
     private String messageForTeacher;
-
-    @JsonProperty("parameterCalification")
     private Double parameterCalification;
 
-    // Constructor, getters y setters
-
-    // Constructor por defecto necesario para la deserialización
-    public ChatResponse() {
+    public EvaluationDetailDTO() {
     }
 
-    public ChatResponse(String messageForTeacher, Double parameterCalification) {
+    public EvaluationDetailDTO(String parameter, String messageForTeacher, Double parameterCalification) {
+        this.parameter = parameter;
         this.messageForTeacher = messageForTeacher;
         this.parameterCalification = parameterCalification;
+    }
+
+    public String getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
     }
 
     public String getMessageForTeacher() {
@@ -40,9 +40,10 @@ public class ChatResponse {
 
     @Override
     public String toString() {
-        return "ChatResponse{" +
-                "messageForTeacher='" + messageForTeacher + '\'' +
-                ", parameterCalification=" + parameterCalification +
+        return "EvaluationDetailDTO{" +
+                "parameter='" + parameter + '\'' +
+                ", messageForTeacher='" + messageForTeacher + '\'' +
+                ", parameterCalification='" + parameterCalification + '\'' +
                 '}';
     }
 }

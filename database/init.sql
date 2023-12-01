@@ -457,6 +457,10 @@ INSERT INTO subject_enrollment (student_user_id, subject_id, evaluated, status, 
 (2, 1, false, 1, 'guidoalfaro', '192.168.0.227'),
 (3, 2, false, 1, 'guidoalfaro', '192.168.0.227');
 
+INSERT INTO subject_enrollment (student_user_id, subject_id, evaluated, status, tx_user, tx_host) VALUES
+(6, 3, false, 1, 'guidoalfaro', '192.168.0.227'),
+
+
 -- Inserts para Teacher Subject (Asignación de Docentes a Materias)
 INSERT INTO teacher_subject (teacher_user_id, subject_id, status, tx_user, tx_host) VALUES
 (4, 1, 1, 'guidoalfaro', '192.168.0.227'),
@@ -509,3 +513,64 @@ INSERT INTO account (user_type_id, first_names, last_names, email, status, tx_us
 
 INSERT INTO subject_enrollment (student_user_id, subject_id, evaluated, status, tx_user, tx_host) VALUES
 (6, 1, false, 1, 'guidoalfaro', '192.168.0.227');
+
+INSERT INTO parameter (description, status, tx_user, tx_date, tx_host) VALUES
+('Formalidad', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227');
+
+insert into subject_evaluation (subject_id, evaluation_id, status, tx_user, tx_host) values
+(1, 1, 1, 'guidoalfaro', '192.168.0.227');
+
+insert into subject_evaluation (subject_id, evaluation_id, status, tx_user, tx_host) values
+(2, 1, 1, 'guidoalfaro', '192.168.0.227');
+
+insert into subject_evaluation (subject_id, evaluation_id, status, tx_user, tx_host) values
+(3, 1, 1, 'guidoalfaro', '192.168.0.227');
+
+
+INSERT INTO answer (subject_evaluation_id, question_id, student_user_id, answer_text, status, tx_user, tx_host) VALUES
+(2, 13, 6, 'Muy puntual', 1, 'guidoalfaro', '192.168.0.227');
+
+-- Usuario 1
+INSERT INTO answer (subject_evaluation_id, question_id, student_user_id, answer_text, status, tx_user, tx_date, tx_host) VALUES
+(1, 1, 1, 'Muy puntual', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 2, 1, 'Claro y comprensible', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 3, 1, 'Sí, muestra un amplio conocimiento', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 4, 1, 'Interactúa de manera positiva y participativa', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 5, 1, 'Sí, utiliza diversos recursos didácticos efectivamente', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 6, 1, 'Buena calidad de retroalimentación y evaluación', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 7, 1, 'Sí, está disponible y dispuesto a ofrecer apoyo', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 8, 1, 'Fomenta el pensamiento crítico y la reflexión', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 9, 1, 'Maneja los cambios de manera efectiva', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 10, 1, 'Sí, ha implementado métodos innovadores', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 11, 1, 'Buena gestión del aula y ambiente de aprendizaje', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 12, 1, 'Sí, promueve un ambiente de inclusión y respeto', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227');
+
+-- Usuario 2
+INSERT INTO answer (subject_evaluation_id, question_id, student_user_id, answer_text, status, tx_user, tx_date, tx_host) VALUES
+(1, 1, 2, 'Moderadamente puntual', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 2, 2, 'Podría mejorar en claridad', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 3, 2, 'A veces muestra conocimiento', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 4, 2, 'Interactúa de manera neutral y ocasional', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 5, 2, 'Utiliza recursos didácticos, pero podría mejorar', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 6, 2, 'Calidad de retroalimentación y evaluación aceptable', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 7, 2, 'A veces está disponible para ofrecer apoyo', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 8, 2, 'Algunas veces fomenta el pensamiento crítico', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 9, 2, 'Puede mejorar en manejar cambios e imprevistos', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 10, 2, 'No ha notado métodos de enseñanza innovadores', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 11, 2, 'Falta en la gestión del aula y ambiente de aprendizaje', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 12, 2, 'No promueve un ambiente de inclusión y respeto', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227');
+
+-- Usuario 6
+INSERT INTO answer (subject_evaluation_id, question_id, student_user_id, answer_text, status, tx_user, tx_date, tx_host) VALUES
+(1, 1, 6, 'Muy puntual', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 2, 6, 'Excelente claridad', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 3, 6, 'Amplio conocimiento demostrado', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 4, 6, 'Interactúa de manera positiva y participativa', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 5, 6, 'Sí, utiliza diversos recursos didácticos efectivamente', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 6, 6, 'Buena calidad de retroalimentación y evaluación', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 7, 6, 'Sí, está disponible y dispuesto a ofrecer apoyo', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 8, 6, 'Fomenta el pensamiento crítico y la reflexión', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 9, 6, 'Maneja los cambios de manera efectiva', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 10, 6, 'Sí, ha implementado métodos innovadores', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 11, 6, 'Buena gestión del aula y ambiente de aprendizaje', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227'),
+(1, 12, 6, 'Sí, promueve un ambiente de inclusión y respeto', 1, 'guidoalfaro', '2023-11-28 12:33:40.381313', '192.168.0.227');

@@ -8,7 +8,7 @@ docker pull postgres:16
 
     Crear una instancia Docker con PostgreSQL 16:
 
-docker run --name pg-todoapp -e POSTGRES_PASSWORD=pg123456 -p 15432:5432 -d postgres:16
+docker run --name pg-evaluacionDocentes -e POSTGRES_PASSWORD=pg123456 -p 15432:5432 -d postgres:16
 
     Acceder a la base de datos por defecto del contenedor creado anteriormente:
 

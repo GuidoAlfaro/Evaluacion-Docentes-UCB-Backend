@@ -1,5 +1,6 @@
 package bo.edu.ucb.backend.bl;
 
+import bo.edu.ucb.backend.dto.UserTypeDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,22 @@ public class UserTypeBL {
             userTypeDAO.deleteById(userTypeId);
         } catch (Exception ex) {
             LOG.error("Ocurrio un error mientras se eliminaba el tipo de usuario: ", ex);
+        }
+    }
+
+    public UserTypeDTO userTypeByEmail(String email) {
+        try {
+            LOG.info("Buscando el tipo de usuario con email: {}", email);
+            UserTypeDTO userType =  userTypeDAO.findUserTypeById(email);
+            if (userType != null) {
+                return userType;
+            } else {
+                LOG.error("No existe el tipo de usuario con email: {}", email);
+                throw new RuntimeException("Usuario inexistente");
+            }
+        } catch (Exception ex) {
+            LOG.error("Ocurrio un error mientras se buscaba el tipo de usuario: ", ex);
+            throw new RuntimeException("Ocurrio un error: ", ex);
         }
     }
 }

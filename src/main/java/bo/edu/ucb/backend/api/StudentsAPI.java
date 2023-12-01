@@ -33,7 +33,7 @@ public class StudentsAPI {
         }
     }
 
-    @GetMapping(path = "api/v1/evaluations/questions/")
+    @GetMapping(path = "api/v1/evaluations/questions")
     public ResponseDTO findCurrentEvaluationQuestions() {
 
         try {
